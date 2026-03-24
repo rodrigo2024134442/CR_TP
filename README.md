@@ -127,7 +127,5 @@ run('Comparacao/main_task4.m')   % Tarefa 3.4
 
 ## Autores
 
-| Nome | Número | Turma |
-|------|--------|-------|
-|      |        |       |
-|      |        |       |
+Rodrigo Beja da Costa N2024134442
+João Marques N2024132275
