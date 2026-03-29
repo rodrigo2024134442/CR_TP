@@ -1,76 +1,47 @@
 function data = fill_missing_inputs(data)
-% Preenche os valores em falta (NaN) nos atributos de entrada
-% Entrada: data — tabela com categóricos já convertidos
-% Saída:   data — mesma tabela sem NaN nos atributos de entrada
+% Preenche valores NaN nos atributos de entrada
+% Entrada: tabela com categóricos já convertidos
+% Saída:   tabela sem NaN nos inputs
 %
-% Estratégias usadas:
-%   - Média: atributos numéricos contínuos (temperature, rotation_speed,
-%            voltage, noise_level, efficiency, load_val)
-%   - Moda:  atributos com possíveis outliers ou que representam categorias
-%            (vibration, current, pressure, torque, maintenance_level,
-%             operating_mode, cooling_type, sensor_status)
+% Estratégias:
+%   - Média: variáveis contínuas
+%   - Moda:  variáveis com outliers ou categóricas
 
-% -------------------------------------------------------------------------
-% Colunas a preencher com MÉDIA
-% Justificação: são atributos contínuos com distribuição equilibrada,
-%               a média representa bem o valor típico do sistema
-% -------------------------------------------------------------------------
+% Colunas preenchidas com média (valores contínuos)
 colunas_media = {'temperature', 'rotation_speed', 'voltage', ...
                  'noise_level', 'efficiency', 'load_val'};
 
-% percorre cada coluna da lista de colunas para preencher com média
 for i = 1:length(colunas_media)
 
-    % obter o nome da coluna atual
-    col = colunas_media{i};
-    % extrair os valores da coluna para uma variável temporária
-    valores_coluna = data.(col);
+    col = colunas_media{i};              % nome da coluna
+    valores_coluna = data.(col);         % dados da coluna
 
-    % calcular a média da coluna ignorando os NaN
-    % 'omitnan' = não conta os valores vazios no cálculo
-    media = mean(valores_coluna, 'omitnan');
+    media = mean(valores_coluna, 'omitnan'); % média sem NaN
+    posicoes_nan = isnan(valores_coluna);    % posições com NaN
 
-    % encontrar as posições onde o valor é NaN
-    posicoes_nan = isnan(valores_coluna);
-    % substituir os NaN pela média
-    data.(col)(posicoes_nan) = media;
-
+    data.(col)(posicoes_nan) = media;    % substitui NaN pela média
 end
 
-% -------------------------------------------------------------------------
-% Colunas a preencher com MODA
-% Justificação: atributos com possíveis outliers (vibration, current,
-%               pressure, torque) ou que representam categorias convertidas
-%               (maintenance_level, operating_mode, cooling_type,
-%               sensor_status) — a moda é mais robusta nestes casos
-% -------------------------------------------------------------------------
+% Colunas preenchidas com moda (outliers ou categorias)
 colunas_moda = {'vibration', 'current', 'pressure', 'torque', ...
                 'maintenance_level', 'operating_mode', ...
                 'cooling_type', 'sensor_status'};
 
-% percorre cada coluna da lista de colunas para preencher com moda
 for i = 1:length(colunas_moda)
 
-    % obter o nome da coluna atual
-    col = colunas_moda{i};
-    % extrair os valores da coluna para uma variável temporária
-    valores_coluna = data.(col);
-    % calcular a moda ignorando os NaN
-    %NOTA: o calc_moda já ignora os NaN internamente antes de calcular
-    moda = calc_moda(valores_coluna);
-    % encontrar as posições onde o valor é NaN
-    posicoes_nan = isnan(valores_coluna);
-    % substituir os NaN pela moda
-    data.(col)(posicoes_nan) = moda;
+    col = colunas_moda{i};              % nome da coluna
+    valores_coluna = data.(col);        % dados da coluna
 
+    moda = calc_moda(valores_coluna);   % moda sem NaN
+    posicoes_nan = isnan(valores_coluna); % posições com NaN
+
+    data.(col)(posicoes_nan) = moda;    % substitui NaN pela moda
 end
 
 end
 
-% -------------------------------------------------------------------------
-% Função auxiliar — calcula a moda ignorando NaN
-% -------------------------------------------------------------------------
+% Função auxiliar: moda ignorando NaN
 function m = calc_moda(coluna)
-    coluna = coluna(~isnan(coluna));  % remove os NaN
-    m = mode(coluna);                 % calcula a moda dos valores válidos
+    coluna = coluna(~isnan(coluna)); % remove NaN
+    m = mode(coluna);                % calcula moda
 end
