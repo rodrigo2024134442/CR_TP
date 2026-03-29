@@ -1,6 +1,6 @@
 
-% teste_task1.m
-% Script para testar os 3 ficheiros do datasetfix:
+% main_task1.m
+% Script para os 3 ficheiros do datasetfix:
 %   - convert_categoricals.m
 %   - fill_missing_inputs.m
 %   - fill_missing_target.m
@@ -12,11 +12,9 @@ close all;
 
 % adicionar pastas ao path para o MATLAB encontrar as funções
 addpath('datasetfix');
-addpath('CBR');
-addpath('RN');
-addpath('Comparacao');
+addpath("results\");
 
-fprintf('=== TESTE TAREFA 3.1 ===\n\n');
+fprintf('=== TAREFA 3.1 ===\n\n');
 
 
 % Ler o dataset original
@@ -106,20 +104,12 @@ end
 fprintf('\n');
 
 
-% Mostrar primeiras 10 linhas do dataset tratado
-
-fprintf('--- Primeiras 10 linhas do dataset tratado ---\n');
-disp(data(1:10, :));
-
-
 % Resumo final
 fprintf('=== RESUMO ===\n');
 fprintf('  Linhas no dataset:        %d\n', height(data));
 fprintf('  NaN nos inputs:           %d\n', nan_inputs);
 fprintf('  Missing no target antes:  %d\n', n_antes);
 fprintf('  Missing no target depois: %d\n\n', n_depois);
-fprintf('Teste concluído com sucesso!\n');
-
 
 % Guardar o dataset tratado na pasta results/
 fprintf('\nA guardar o dataset tratado...\n');

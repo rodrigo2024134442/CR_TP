@@ -16,9 +16,10 @@ colunas = {'temperature', 'vibration', 'rotation_speed', 'voltage', ...
 
 % Calcular mínimo e máximo de cada coluna (para normalização)
 n_colunas = length(colunas);
+% prenche primeiro com 0 por questao de eficiencia
 col_min = zeros(1, n_colunas);
 col_max = zeros(1, n_colunas);
-
+% colocar valor minimo e maximo de cada coluna 
 for j = 1:n_colunas
     col = colunas{j};
     col_min(j) = min(data.(col));
@@ -29,24 +30,24 @@ end
 for i = 1:length(indices_missing)
 
     idx_missing = indices_missing(i);     % índice da linha sem classe
-    linha_sem_classe = data(idx_missing,:);
+    linha_sem_classe = data(idx_missing,:); % vai buscar a linha toda
 
     melhor_sim = -1;   % melhor similaridade encontrada
     melhor_idx = -1;   % índice da linha mais similar
 
     % Comparar com todas as linhas com classe conhecida
-    for k = 1:height(data)
+    for l = 1:height(data)
 
-        if ismissing(data.class_cat(k))
+        if ismissing(data.class_cat(l))
             continue; % ignora linhas sem classe
         end
 
-        sim = calcular_similaridade(linha_sem_classe, data(k,:), ...
+        sim = calcular_similaridade(linha_sem_classe, data(l,:), ...
                                    colunas, col_min, col_max);
 
         if sim > melhor_sim
             melhor_sim = sim;
-            melhor_idx = k;
+            melhor_idx = l;
         end
     end
 
