@@ -10,16 +10,19 @@ clc;
 clear;
 close all;
 
+script_dir = fileparts(mfilename('fullpath'));
+proj_root = fileparts(script_dir);
+
 % adicionar pastas ao path para o MATLAB encontrar as funções
-addpath('datasetfix');
-addpath("results\");
+addpath(script_dir);
+addpath(proj_root);
 
 fprintf('=== TAREFA 3.1 ===\n\n');
 
 
 % Ler o dataset original
 fprintf('A ler o dataset...\n');
-data = readtable('data/dataset_TP.csv', 'TextType', 'string');
+data = readtable(fullfile(proj_root, 'data', 'dataset_TP.csv'), 'TextType', 'string');
 fprintf('Dataset lido: %d linhas, %d colunas\n\n', height(data), width(data));
 
 
@@ -113,8 +116,10 @@ fprintf('  Missing no target depois: %d\n\n', n_depois);
 
 % Guardar o dataset tratado na pasta results/
 fprintf('\nA guardar o dataset tratado...\n');
-if ~exist('results', 'dir')
-    mkdir('results');
+% Garantir que a pasta results/ do root do projeto existe e gravar aí
+results_dir = fullfile(proj_root, 'results');
+if ~exist(results_dir, 'dir')
+    mkdir(results_dir);
 end
-save('results/dataset_tratado.mat', 'data');
-fprintf('Dataset guardado em results/dataset_tratado.mat\n');
+save(fullfile(results_dir, 'dataset_tratado.mat'), 'data');
+fprintf('Dataset guardado em %s\n', fullfile('results', 'dataset_tratado.mat'));

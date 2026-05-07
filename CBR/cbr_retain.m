@@ -1,11 +1,17 @@
-function data = cbr_retain(data, novo_caso, classe, temp_final, best_sim)
+function data = cbr_retain(data, novo_caso, classe, temp_final, best_sim, verbose)
 % Retain do CBR
 % Guarda o novo caso no dataset se for suficientemente diferente dos existentes
 % Entradas: data, novo_caso, classe (diagnóstico), temp_final, best_sim
 % Saída:    data atualizado (com ou sem o novo caso)
 
-fprintf('\n--- RETAIN ---\n');
-fprintf('  Similaridade máxima encontrada: %.4f\n', best_sim);
+if nargin < 6 || isempty(verbose)
+    verbose = true;
+end
+
+if verbose
+    fprintf('\n--- RETAIN ---\n');
+    fprintf('  Similaridade máxima encontrada: %.4f\n', best_sim);
+end
 
 % limiar de 0.8 — consistente com o limiar usado no Retrieve
 % se best_sim < 0.8, o caso é suficientemente diferente para guardar
@@ -18,11 +24,15 @@ if best_sim < 0.8
     % adicionar o novo caso ao dataset
     data = [data; novo_caso];
 
-    fprintf('  Caso guardado no dataset (total: %d casos)\n', height(data));
+    if verbose
+        fprintf('  Caso guardado no dataset (total: %d casos)\n', height(data));
+    end
 
 else
     % caso muito parecido com um existente — não vale a pena guardar
-    fprintf('  Caso não guardado — já existe caso suficientemente similar\n');
+    if verbose
+        fprintf('  Caso não guardado — já existe caso suficientemente similar\n');
+    end
 end
 
 end

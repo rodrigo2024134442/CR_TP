@@ -8,7 +8,15 @@ function test_best_nets(X_test, T_test, classes)
 
 fprintf('\n========= TESTE DAS 3 MELHORES REDES =========\n\n');
 
-nomes = {'results/best_net1.mat', 'results/best_net2.mat', 'results/best_net3.mat'};
+script_dir = fileparts(mfilename('fullpath'));
+proj_root = fileparts(script_dir);
+results_dir = fullfile(proj_root, 'results');
+
+nomes = {
+    fullfile(results_dir, 'best_net1.mat'),
+    fullfile(results_dir, 'best_net2.mat'),
+    fullfile(results_dir, 'best_net3.mat')
+};
 
 for k = 1:3
 

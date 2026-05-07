@@ -8,15 +8,21 @@
 %   d) Testar as 3 melhores no dataset de teste
 % =========================================================================
 
-clc; clear; close all;
-addpath(genpath(pwd));
+clear; close all;
+script_dir = fileparts(mfilename('fullpath'));
+proj_root = fileparts(script_dir);
+results_dir = fullfile(proj_root, 'results');
+
+addpath(proj_root);
+addpath(script_dir)
+addpath(fullfile(proj_root, 'datasetfix'))
 
 % -------------------------------------------------------------------------
 % 0. Carregar e preparar dados
 % -------------------------------------------------------------------------
 fprintf('=== TAREFA 3.3 — REDES NEURONAIS ===\n\n');
 fprintf('A carregar dataset tratado...\n');
-load('results/dataset_tratado.mat'); % variável: data
+load(fullfile(proj_root, 'results', 'dataset_tratado.mat')); % variável: data
 
 % Classes (ordem fixa — usada em build_targets e test_best_nets)
 classes = {'Normal', 'ElectricalFailure', 'MechanicalFailure'};
@@ -34,6 +40,11 @@ X_norm = (X - X_min) ./ intervalo;
 
 fprintf('Dataset: %d casos, %d atributos, %d classes\n\n', ...
         size(X, 2), size(X, 1), size(T, 1));
+
+% As redes emitem muitos warnings durante o treino; suprimir apenas nesta parte.
+warning_state = warning;
+cleanup_warning = onCleanup(@() warning(warning_state));
+warning('off', 'all');
 
 % -------------------------------------------------------------------------
 % a) Estudo de configurações
@@ -186,13 +197,16 @@ for k = 1:6
             res_nonnorm(k,1), res_nonnorm(k,2), res_norm(k,1), res_norm(k,2));
 end
 
+    % Voltar ao estado normal dos warnings antes da gravação e do teste final.
+    clear cleanup_warning;
+
 % -------------------------------------------------------------------------
 % c) Gravar as 3 melhores redes
 % -------------------------------------------------------------------------
 fprintf('\n--- c) A gravar as 3 melhores redes ---\n');
 
-if ~exist('results', 'dir')
-    mkdir('results');
+if ~exist(results_dir, 'dir')
+    mkdir(results_dir);
 end
 
 for k = 1:3
@@ -205,7 +219,7 @@ for k = 1:3
     config.divisao      = cfg_linha{4};
     config.acc_teste    = melhores_acc_ord(k);
 
-    nome_ficheiro = sprintf('results/best_net%d.mat', k);
+    nome_ficheiro = fullfile(proj_root, 'results', sprintf('best_net%d.mat', k));
     save(nome_ficheiro, 'net', 'config');
     fprintf('  Rede %d guardada: %s (Teste: %.2f%%)\n', k, nome_ficheiro, melhores_acc_ord(k));
 end
@@ -225,7 +239,7 @@ end
 % -------------------------------------------------------------------------
 fprintf('\n--- d) Teste no dataset_TP_test.csv ---\n');
 
-dados_teste = readtable('data/dataset_TP_test.csv', 'TextType', 'string');
+dados_teste = readtable(fullfile(proj_root, 'data', 'dataset_TP_test.csv'), 'TextType', 'string');
 dados_teste = convert_categoricals(dados_teste);
 
 X_test = build_inputs(dados_teste);

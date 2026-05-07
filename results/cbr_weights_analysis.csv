@@ -1,0 +1,7 @@
+Configuracao,Acertos_NaoNorm,Taxa_NaoNorm,Acertos_Norm,Taxa_Norm
+Default (Balanceado),30,100,30,100
+Pesos Iguais,30,100,30,100
+Sensores Principais,30,100,30,100
+Foco Mecânico,30,100,30,100
+Foco Elétrico,30,100,30,100
+Sem Contexto,30,100,30,100

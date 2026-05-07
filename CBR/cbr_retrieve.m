@@ -1,11 +1,14 @@
-function [casos_similares, best_idx, best_sim] = cbr_retrieve(novo_caso, data, limiar)
+function [casos_similares, best_idx, best_sim] = cbr_retrieve(novo_caso, data, limiar, pesos_customizados, verbose)
 % Retrieve do CBR — encontra os casos mais similares ao novo caso
 %
 % Entradas:
-%   novo_caso  — linha com o novo caso a diagnosticar
-%   data       — dataset completo
-%   limiar     — similaridade mínima para considerar um caso relevante
-%                (valor entre 0 e 1, recomendado: 0.8)
+%   novo_caso         — linha com o novo caso a diagnosticar
+%   data              — dataset completo
+%   limiar            — similaridade mínima para considerar um caso relevante
+%                       (valor entre 0 e 1, recomendado: 0.8)
+%   pesos_customizados— (OPCIONAL) vetor com pesos personalizados para cada atributo
+%                       Se omitido, usa os pesos por defeito
+%   verbose           — (OPCIONAL) true/false para mostrar mensagens no ecrã
 %
 % Saídas:
 %   casos_similares — tabela com os casos acima do limiar
@@ -25,7 +28,7 @@ colunas = {'temperature', 'vibration', 'rotation_speed', 'voltage', ...
 % pesos de cada atributo — valores mais altos = mais importante
 % justificação: pesos refletem a relevância de cada atributo para
 % identificar o tipo de falha (elétrica ou mecânica)
-pesos = [2.0, ... % temperature    — indicador geral de qualquer falha
+pesos_default = [2.0, ... % temperature    — indicador geral de qualquer falha
          3.0, ... % vibration      — principal indicador de falha mecânica
          2.0, ... % rotation_speed — indicador forte de falha mecânica
          3.0, ... % voltage        — principal indicador de falha elétrica
@@ -39,6 +42,17 @@ pesos = [2.0, ... % temperature    — indicador geral de qualquer falha
          0.5, ... % operating_mode    — contexto, não diagnóstico
          0.5, ... % cooling_type      — contexto, não diagnóstico
          1.0];    % sensor_status     — contexto útil mas indireto
+
+% usar pesos customizados se fornecidos, caso contrário usar os pesos por defeito
+if nargin < 4 || isempty(pesos_customizados)
+    pesos = pesos_default;
+else
+    pesos = pesos_customizados;
+end
+
+if nargin < 5 || isempty(verbose)
+    verbose = true;
+end
 
 
 % Calcular min e max de cada coluna
@@ -114,11 +128,13 @@ casos_similares.similaridade = similaridades(indices_acima);
 
 % Mostrar resultados no ecrã
 
-fprintf('\n--- RETRIEVE ---\n');
-fprintf('  Limiar usado:               %.2f\n', limiar);
-fprintf('  Casos acima do limiar:      %d\n', height(casos_similares));
-fprintf('  Caso mais similar:          índice %d\n', best_idx);
-fprintf('  Similaridade máxima:        %.4f\n', best_sim);
-fprintf('  Classe do caso mais similar: %s\n', string(data.class_cat(best_idx)));
+if verbose
+    fprintf('\n--- RETRIEVE ---\n');
+    fprintf('  Limiar usado:               %.2f\n', limiar);
+    fprintf('  Casos acima do limiar:      %d\n', height(casos_similares));
+    fprintf('  Caso mais similar:          índice %d\n', best_idx);
+    fprintf('  Similaridade máxima:        %.4f\n', best_sim);
+    fprintf('  Classe do caso mais similar: %s\n', string(data.class_cat(best_idx)));
+end
 
 end

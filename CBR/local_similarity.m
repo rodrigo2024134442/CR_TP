@@ -7,6 +7,13 @@ function sim = local_similarity(v1, v2, col_min, col_max)
 %   col_min      — valor mínimo da coluna (para normalizar)
 %   col_max      — valor máximo da coluna (para normalizar)
 
+    % Se os valores não forem numéricos, comparar por igualdade exata.
+    % Isto torna a função mais robusta em testes manuais.
+    if ~(isnumeric(v1) && isnumeric(v2))
+        sim = double(string(v1) == string(v2));
+        return;
+    end
+
     % calcular o intervalo da coluna
     intervalo = col_max - col_min;
 
