@@ -1,0 +1,1513 @@
+=== TAREFA 3.1 ===
+
+A ler o dataset...
+Dataset lido: 5000 linhas, 15 colunas
+
+--- Valores em falta ANTES do tratamento ---
+  temperature          : 480 NaN
+  vibration            : 496 NaN
+  rotation_speed       : 527 NaN
+  voltage              : 470 NaN
+  current              : 480 NaN
+  pressure             : 517 NaN
+  noise_level          : 479 NaN
+  efficiency           : 503 NaN
+  load_val             : 515 NaN
+  torque               : 503 NaN
+  maintenance_level    : 466 missing
+  operating_mode       : 468 missing
+  cooling_type         : 496 missing
+  sensor_status        : 502 missing
+  class_cat            : 232 missing
+
+A converter categóricos...
+Conversão concluída!
+
+A preencher valores em falta nos inputs...
+Preenchimento dos inputs concluído!
+
+--- NaN nos inputs DEPOIS do tratamento ---
+  Nenhum NaN nos inputs!
+
+--- Target ANTES do fill_missing_target ---
+  Missing values no target: 232
+
+A preencher valores em falta no target (CBR)...
+  (pode demorar alguns minutos)
+  Linhas sem classe a preencher: 232
+  Preenchimento do target concluído!
+
+--- Target DEPOIS do fill_missing_target ---
+  Missing values no target: 0
+
+--- Distribuição das classes ---
+  Normal                    : 1684 registos (33.7%)
+  ElectricalFailure         : 1672 registos (33.4%)
+  MechanicalFailure         : 1644 registos (32.9%)
+
+=== RESUMO ===
+  Linhas no dataset:        5000
+  NaN nos inputs:           0
+  Missing no target antes:  232
+  Missing no target depois: 0
+
+
+A guardar o dataset tratado...
+Dataset guardado em results\dataset_tratado.mat
+--- Tarefa 3.2a: Sistema CBR ---
+A carregar datasets...
+Dataset de treino: 5000 casos
+Dataset de teste:  30 casos
+
+A treinar a rede neuronal para prever temperature...
+Rede neuronal treinada para prever temperature.
+
+
+========= CASO 1/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1345
+  Caso mais similar:          índice 1271
+  Similaridade máxima:        0.9408
+  Classe do caso mais similar: MechanicalFailure
+
+--- REUSE ---
+  Classe sugerida:      MechanicalFailure
+  Temperatura atual:    68.16 C
+  Temperatura sugerida: 74.63 C
+
+--- REVISE ---
+  Temperatura atual:    68.16 C
+  Temperatura sugerida: 74.63 C
+  Temperatura atualizada para 74.63 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9408
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 2/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1509
+  Caso mais similar:          índice 92
+  Similaridade máxima:        0.9518
+  Classe do caso mais similar: ElectricalFailure
+
+--- REUSE ---
+  Classe sugerida:      ElectricalFailure
+  Temperatura atual:    72.95 C
+  Temperatura sugerida: 69.11 C
+
+--- REVISE ---
+  Temperatura atual:    72.95 C
+  Temperatura sugerida: 69.11 C
+  Temperatura atualizada para 69.11 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9518
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 3/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1751
+  Caso mais similar:          índice 4321
+  Similaridade máxima:        0.9589
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    63.70 C
+  Temperatura sugerida: 62.83 C
+
+--- REVISE ---
+  Temperatura atual:    63.70 C
+  Temperatura sugerida: 62.83 C
+  Temperatura atualizada para 62.83 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9589
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 4/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      2012
+  Caso mais similar:          índice 931
+  Similaridade máxima:        0.9657
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    58.06 C
+  Temperatura sugerida: 64.66 C
+
+--- REVISE ---
+  Temperatura atual:    58.06 C
+  Temperatura sugerida: 64.66 C
+  Temperatura atualizada para 64.66 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9657
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 5/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1723
+  Caso mais similar:          índice 822
+  Similaridade máxima:        0.9603
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    55.80 C
+  Temperatura sugerida: 62.24 C
+
+--- REVISE ---
+  Temperatura atual:    55.80 C
+  Temperatura sugerida: 62.24 C
+  Temperatura atualizada para 62.24 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9603
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 6/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      2341
+  Caso mais similar:          índice 636
+  Similaridade máxima:        0.9582
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    61.79 C
+  Temperatura sugerida: 63.00 C
+
+--- REVISE ---
+  Temperatura atual:    61.79 C
+  Temperatura sugerida: 63.00 C
+  Temperatura atualizada para 63.00 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9582
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 7/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1827
+  Caso mais similar:          índice 426
+  Similaridade máxima:        0.9459
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    61.73 C
+  Temperatura sugerida: 60.38 C
+
+--- REVISE ---
+  Temperatura atual:    61.73 C
+  Temperatura sugerida: 60.38 C
+  Temperatura atualizada para 60.38 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9459
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 8/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1094
+  Caso mais similar:          índice 1792
+  Similaridade máxima:        0.9384
+  Classe do caso mais similar: MechanicalFailure
+
+--- REUSE ---
+  Classe sugerida:      MechanicalFailure
+  Temperatura atual:    72.88 C
+  Temperatura sugerida: 72.50 C
+
+--- REVISE ---
+  Temperatura atual:    72.88 C
+  Temperatura sugerida: 72.50 C
+  Temperatura atualizada para 72.50 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9384
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 9/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1646
+  Caso mais similar:          índice 1298
+  Similaridade máxima:        0.9565
+  Classe do caso mais similar: MechanicalFailure
+
+--- REUSE ---
+  Classe sugerida:      MechanicalFailure
+  Temperatura atual:    70.41 C
+  Temperatura sugerida: 74.12 C
+
+--- REVISE ---
+  Temperatura atual:    70.41 C
+  Temperatura sugerida: 74.12 C
+  Temperatura atualizada para 74.12 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9565
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 10/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1503
+  Caso mais similar:          índice 1814
+  Similaridade máxima:        0.9470
+  Classe do caso mais similar: MechanicalFailure
+
+--- REUSE ---
+  Classe sugerida:      MechanicalFailure
+  Temperatura atual:    79.21 C
+  Temperatura sugerida: 74.82 C
+
+--- REVISE ---
+  Temperatura atual:    79.21 C
+  Temperatura sugerida: 74.82 C
+  Temperatura atualizada para 74.82 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9470
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 11/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1469
+  Caso mais similar:          índice 3536
+  Similaridade máxima:        0.9326
+  Classe do caso mais similar: MechanicalFailure
+
+--- REUSE ---
+  Classe sugerida:      MechanicalFailure
+  Temperatura atual:    78.54 C
+  Temperatura sugerida: 74.05 C
+
+--- REVISE ---
+  Temperatura atual:    78.54 C
+  Temperatura sugerida: 74.05 C
+  Temperatura atualizada para 74.05 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9326
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 12/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      2103
+  Caso mais similar:          índice 1434
+  Similaridade máxima:        0.9410
+  Classe do caso mais similar: ElectricalFailure
+
+--- REUSE ---
+  Classe sugerida:      ElectricalFailure
+  Temperatura atual:    58.21 C
+  Temperatura sugerida: 66.36 C
+
+--- REVISE ---
+  Temperatura atual:    58.21 C
+  Temperatura sugerida: 66.36 C
+  Temperatura atualizada para 66.36 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9410
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 13/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1787
+  Caso mais similar:          índice 313
+  Similaridade máxima:        0.9497
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    58.23 C
+  Temperatura sugerida: 62.20 C
+
+--- REVISE ---
+  Temperatura atual:    58.23 C
+  Temperatura sugerida: 62.20 C
+  Temperatura atualizada para 62.20 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9497
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 14/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      2014
+  Caso mais similar:          índice 3448
+  Similaridade máxima:        0.9569
+  Classe do caso mais similar: ElectricalFailure
+
+--- REUSE ---
+  Classe sugerida:      ElectricalFailure
+  Temperatura atual:    62.95 C
+  Temperatura sugerida: 67.06 C
+
+--- REVISE ---
+  Temperatura atual:    62.95 C
+  Temperatura sugerida: 67.06 C
+  Temperatura atualizada para 67.06 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9569
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 15/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1905
+  Caso mais similar:          índice 663
+  Similaridade máxima:        0.9613
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    60.42 C
+  Temperatura sugerida: 63.64 C
+
+--- REVISE ---
+  Temperatura atual:    60.42 C
+  Temperatura sugerida: 63.64 C
+  Temperatura atualizada para 63.64 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9613
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 16/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1476
+  Caso mais similar:          índice 2743
+  Similaridade máxima:        0.9360
+  Classe do caso mais similar: ElectricalFailure
+
+--- REUSE ---
+  Classe sugerida:      ElectricalFailure
+  Temperatura atual:    68.20 C
+  Temperatura sugerida: 69.53 C
+
+--- REVISE ---
+  Temperatura atual:    68.20 C
+  Temperatura sugerida: 69.53 C
+  Temperatura atualizada para 69.53 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9360
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 17/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      943
+  Caso mais similar:          índice 4824
+  Similaridade máxima:        0.9489
+  Classe do caso mais similar: MechanicalFailure
+
+--- REUSE ---
+  Classe sugerida:      MechanicalFailure
+  Temperatura atual:    78.78 C
+  Temperatura sugerida: 73.52 C
+
+--- REVISE ---
+  Temperatura atual:    78.78 C
+  Temperatura sugerida: 73.52 C
+  Temperatura atualizada para 73.52 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9489
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 18/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1596
+  Caso mais similar:          índice 2085
+  Similaridade máxima:        0.9451
+  Classe do caso mais similar: MechanicalFailure
+
+--- REUSE ---
+  Classe sugerida:      MechanicalFailure
+  Temperatura atual:    73.70 C
+  Temperatura sugerida: 74.50 C
+
+--- REVISE ---
+  Temperatura atual:    73.70 C
+  Temperatura sugerida: 74.50 C
+  Temperatura atualizada para 74.50 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9451
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 19/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1535
+  Caso mais similar:          índice 4712
+  Similaridade máxima:        0.9344
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    54.44 C
+  Temperatura sugerida: 59.89 C
+
+--- REVISE ---
+  Temperatura atual:    54.44 C
+  Temperatura sugerida: 59.89 C
+  Temperatura atualizada para 59.89 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9344
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 20/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1847
+  Caso mais similar:          índice 2483
+  Similaridade máxima:        0.9738
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    58.56 C
+  Temperatura sugerida: 62.30 C
+
+--- REVISE ---
+  Temperatura atual:    58.56 C
+  Temperatura sugerida: 62.30 C
+  Temperatura atualizada para 62.30 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9738
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 21/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1430
+  Caso mais similar:          índice 125
+  Similaridade máxima:        0.9250
+  Classe do caso mais similar: ElectricalFailure
+
+--- REUSE ---
+  Classe sugerida:      ElectricalFailure
+  Temperatura atual:    69.72 C
+  Temperatura sugerida: 69.63 C
+
+--- REVISE ---
+  Temperatura atual:    69.72 C
+  Temperatura sugerida: 69.63 C
+  Temperatura atualizada para 69.63 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9250
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 22/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1690
+  Caso mais similar:          índice 4221
+  Similaridade máxima:        0.9517
+  Classe do caso mais similar: ElectricalFailure
+
+--- REUSE ---
+  Classe sugerida:      ElectricalFailure
+  Temperatura atual:    74.88 C
+  Temperatura sugerida: 69.92 C
+
+--- REVISE ---
+  Temperatura atual:    74.88 C
+  Temperatura sugerida: 69.92 C
+  Temperatura atualizada para 69.92 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9517
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 23/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1979
+  Caso mais similar:          índice 2409
+  Similaridade máxima:        0.9635
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    60.83 C
+  Temperatura sugerida: 61.65 C
+
+--- REVISE ---
+  Temperatura atual:    60.83 C
+  Temperatura sugerida: 61.65 C
+  Temperatura atualizada para 61.65 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9635
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 24/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1794
+  Caso mais similar:          índice 1745
+  Similaridade máxima:        0.9518
+  Classe do caso mais similar: ElectricalFailure
+
+--- REUSE ---
+  Classe sugerida:      ElectricalFailure
+  Temperatura atual:    72.53 C
+  Temperatura sugerida: 69.33 C
+
+--- REVISE ---
+  Temperatura atual:    72.53 C
+  Temperatura sugerida: 69.33 C
+  Temperatura atualizada para 69.33 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9518
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 25/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1393
+  Caso mais similar:          índice 756
+  Similaridade máxima:        0.9401
+  Classe do caso mais similar: ElectricalFailure
+
+--- REUSE ---
+  Classe sugerida:      ElectricalFailure
+  Temperatura atual:    66.54 C
+  Temperatura sugerida: 68.46 C
+
+--- REVISE ---
+  Temperatura atual:    66.54 C
+  Temperatura sugerida: 68.46 C
+  Temperatura atualizada para 68.46 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9401
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 26/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1704
+  Caso mais similar:          índice 3722
+  Similaridade máxima:        0.9684
+  Classe do caso mais similar: ElectricalFailure
+
+--- REUSE ---
+  Classe sugerida:      ElectricalFailure
+  Temperatura atual:    70.65 C
+  Temperatura sugerida: 70.14 C
+
+--- REVISE ---
+  Temperatura atual:    70.65 C
+  Temperatura sugerida: 70.14 C
+  Temperatura atualizada para 70.14 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9684
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 27/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1888
+  Caso mais similar:          índice 2439
+  Similaridade máxima:        0.9630
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    58.12 C
+  Temperatura sugerida: 62.09 C
+
+--- REVISE ---
+  Temperatura atual:    58.12 C
+  Temperatura sugerida: 62.09 C
+  Temperatura atualizada para 62.09 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9630
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 28/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1884
+  Caso mais similar:          índice 2893
+  Similaridade máxima:        0.9576
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    58.15 C
+  Temperatura sugerida: 61.98 C
+
+--- REVISE ---
+  Temperatura atual:    58.15 C
+  Temperatura sugerida: 61.98 C
+  Temperatura atualizada para 61.98 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9576
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 29/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      1931
+  Caso mais similar:          índice 2835
+  Similaridade máxima:        0.9694
+  Classe do caso mais similar: Normal
+
+--- REUSE ---
+  Classe sugerida:      Normal
+  Temperatura atual:    60.61 C
+  Temperatura sugerida: 61.89 C
+
+--- REVISE ---
+  Temperatura atual:    60.61 C
+  Temperatura sugerida: 61.89 C
+  Temperatura atualizada para 61.89 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9694
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= CASO 30/30 =========
+
+--- RETRIEVE ---
+  Limiar usado:               0.80
+  Casos acima do limiar:      2656
+  Caso mais similar:          índice 1844
+  Similaridade máxima:        0.9371
+  Classe do caso mais similar: ElectricalFailure
+
+--- REUSE ---
+  Classe sugerida:      ElectricalFailure
+  Temperatura atual:    66.52 C
+  Temperatura sugerida: 69.38 C
+
+--- REVISE ---
+  Temperatura atual:    66.52 C
+  Temperatura sugerida: 69.38 C
+  Temperatura atualizada para 69.38 C (automático)
+
+--- RETAIN ---
+  Similaridade máxima encontrada: 0.9371
+  Caso não guardado — já existe caso suficientemente similar
+  Resultado: CORRETO
+
+========= RESULTADOS FINAIS =========
+  Casos testados:  30
+  Acertos:         30
+  Taxa de acerto:  100.0%
+
+--- Detalhe por caso ---
+  Caso  Previsto                  Correto                   Resultado
+  -----------------------------------------------------------------
+  1     MechanicalFailure         MechanicalFailure         CORRETO
+  2     ElectricalFailure         ElectricalFailure         CORRETO
+  3     Normal                    Normal                    CORRETO
+  4     Normal                    Normal                    CORRETO
+  5     Normal                    Normal                    CORRETO
+  6     Normal                    Normal                    CORRETO
+  7     Normal                    Normal                    CORRETO
+  8     MechanicalFailure         MechanicalFailure         CORRETO
+  9     MechanicalFailure         MechanicalFailure         CORRETO
+  10    MechanicalFailure         MechanicalFailure         CORRETO
+  11    MechanicalFailure         MechanicalFailure         CORRETO
+  12    ElectricalFailure         ElectricalFailure         CORRETO
+  13    Normal                    Normal                    CORRETO
+  14    ElectricalFailure         ElectricalFailure         CORRETO
+  15    Normal                    Normal                    CORRETO
+  16    ElectricalFailure         ElectricalFailure         CORRETO
+  17    MechanicalFailure         MechanicalFailure         CORRETO
+  18    MechanicalFailure         MechanicalFailure         CORRETO
+  19    Normal                    Normal                    CORRETO
+  20    Normal                    Normal                    CORRETO
+  21    ElectricalFailure         ElectricalFailure         CORRETO
+  22    ElectricalFailure         ElectricalFailure         CORRETO
+  23    Normal                    Normal                    CORRETO
+  24    ElectricalFailure         ElectricalFailure         CORRETO
+  25    ElectricalFailure         ElectricalFailure         CORRETO
+  26    ElectricalFailure         ElectricalFailure         CORRETO
+  27    Normal                    Normal                    CORRETO
+  28    Normal                    Normal                    CORRETO
+  29    Normal                    Normal                    CORRETO
+  30    ElectricalFailure         ElectricalFailure         CORRETO
+--- Tarefa 3.2b: Análise de Pesos CBR ---
+=== TAREFA 3.2b — ANÁLISE DE PESOS NO CBR ===
+
+A carregar datasets...
+Dataset de treino: 5000 casos
+Dataset de teste:  30 casos
+
+A treinar a rede neuronal para prever temperature...
+Rede neuronal treinada para prever temperature.
+Rede treinada!
+
+Definindo configurações de pesos...
+
+Testando 6 configurações de pesos...
+
+--- Config 1/6: Default (Balanceado) ---
+  Testando SEM normalização...
+  Testando COM normalização...
+    Sem normalização: 30/30 (100.0%)
+    Com normalização: 30/30 (100.0%)
+
+--- Config 2/6: Pesos Iguais ---
+  Testando SEM normalização...
+  Testando COM normalização...
+    Sem normalização: 30/30 (100.0%)
+    Com normalização: 30/30 (100.0%)
+
+--- Config 3/6: Sensores Principais ---
+  Testando SEM normalização...
+  Testando COM normalização...
+    Sem normalização: 30/30 (100.0%)
+    Com normalização: 30/30 (100.0%)
+
+--- Config 4/6: Foco Mecânico ---
+  Testando SEM normalização...
+  Testando COM normalização...
+    Sem normalização: 30/30 (100.0%)
+    Com normalização: 30/30 (100.0%)
+
+--- Config 5/6: Foco Elétrico ---
+  Testando SEM normalização...
+  Testando COM normalização...
+    Sem normalização: 30/30 (100.0%)
+    Com normalização: 30/30 (100.0%)
+
+--- Config 6/6: Sem Contexto ---
+  Testando SEM normalização...
+  Testando COM normalização...
+    Sem normalização: 30/30 (100.0%)
+    Com normalização: 30/30 (100.0%)
+
+
+========= RESUMO DOS RESULTADOS =========
+
+         Configuracao         Acertos_NaoNorm    Taxa_NaoNorm    Acertos_Norm    Taxa_Norm
+    ______________________    _______________    ____________    ____________    _________
+
+    "Default (Balanceado)"          30               100              30            100   
+    "Pesos Iguais"                  30               100              30            100   
+    "Sensores Principais"           30               100              30            100   
+    "Foco Mecânico"                 30               100              30            100   
+    "Foco Elétrico"                 30               100              30            100   
+    "Sem Contexto"                  30               100              30            100   
+
+
+Melhor configuração (SEM normalização):  Default (Balanceado) (100.0%)
+Melhor configuração (COM normalização): Default (Balanceado) (100.0%)
+
+=== ANÁLISE DE PESOS CONCLUÍDA ===
+Gráficos guardados em results\cbr_weights_analysis.fig e .png
+Resumo guardado em results/cbr_weights_analysis.mat e .csv
+--- Tarefa 3.3: Redes Neuronais ---
+=== TAREFA 3.3 — REDES NEURONAIS ===
+
+A carregar dataset tratado...
+Dataset: 5000 casos, 14 atributos, 3 classes
+
+--- a) Estudo de configurações (10 repetições cada) ---
+
+Config  1/120: top=10       treino=traingd  ativ=softmax  div=[70 15 15] lr=0.0100 ep=200
+           → Global: 47.64% | Teste: 47.57%
+
+Config  2/120: top=10       treino=traingd  ativ=softmax  div=[70 15 15] lr=0.0100 ep=500
+           → Global: 59.22% | Teste: 58.64%
+
+Config  3/120: top=10       treino=traingd  ativ=softmax  div=[70 15 15] lr=0.0050 ep=200
+           → Global: 37.67% | Teste: 37.91%
+
+Config  4/120: top=10       treino=traingd  ativ=softmax  div=[70 15 15] lr=0.0050 ep=500
+           → Global: 45.02% | Teste: 44.69%
+
+Config  5/120: top=10       treino=traingd  ativ=softmax  div=[70 15 15] lr=0.0010 ep=200
+           → Global: 33.16% | Teste: 32.77%
+
+Config  6/120: top=10       treino=traingd  ativ=softmax  div=[70 15 15] lr=0.0010 ep=500
+           → Global: 39.54% | Teste: 39.68%
+
+Config  7/120: top=10       treino=traingd  ativ=softmax  div=[80 10 10] lr=0.0100 ep=200
+           → Global: 43.61% | Teste: 42.76%
+
+Config  8/120: top=10       treino=traingd  ativ=softmax  div=[80 10 10] lr=0.0100 ep=500
+           → Global: 62.19% | Teste: 62.54%
+
+Config  9/120: top=10       treino=traingd  ativ=softmax  div=[80 10 10] lr=0.0050 ep=200
+           → Global: 33.84% | Teste: 34.90%
+
+Config 10/120: top=10       treino=traingd  ativ=softmax  div=[80 10 10] lr=0.0050 ep=500
+           → Global: 45.66% | Teste: 45.10%
+
+Config 11/120: top=10       treino=traingd  ativ=softmax  div=[80 10 10] lr=0.0010 ep=200
+           → Global: 34.39% | Teste: 33.54%
+
+Config 12/120: top=10       treino=traingd  ativ=softmax  div=[80 10 10] lr=0.0010 ep=500
+           → Global: 38.09% | Teste: 39.28%
+
+Config 13/120: top=10       treino=traingd  ativ=softmax  div=[60 20 20] lr=0.0100 ep=200
+           → Global: 38.17% | Teste: 37.85%
+
+Config 14/120: top=10       treino=traingd  ativ=softmax  div=[60 20 20] lr=0.0100 ep=500
+           → Global: 58.80% | Teste: 59.12%
+
+Config 15/120: top=10       treino=traingd  ativ=softmax  div=[60 20 20] lr=0.0050 ep=200
+           → Global: 40.99% | Teste: 40.78%
+
+Config 16/120: top=10       treino=traingd  ativ=softmax  div=[60 20 20] lr=0.0050 ep=500
+           → Global: 44.23% | Teste: 44.37%
+
+Config 17/120: top=10       treino=traingd  ativ=softmax  div=[60 20 20] lr=0.0010 ep=200
+           → Global: 32.64% | Teste: 31.93%
+
+Config 18/120: top=10       treino=traingd  ativ=softmax  div=[60 20 20] lr=0.0010 ep=500
+           → Global: 36.48% | Teste: 36.60%
+
+Config 19/120: top=10       treino=traingd  ativ=tansig   div=[70 15 15] lr=0.0100 ep=200
+           → Global: 33.73% | Teste: 34.05%
+
+Config 20/120: top=10       treino=traingd  ativ=tansig   div=[70 15 15] lr=0.0100 ep=500
+           → Global: 35.54% | Teste: 36.21%
+
+Config 21/120: top=10       treino=traingd  ativ=tansig   div=[70 15 15] lr=0.0050 ep=200
+           → Global: 32.42% | Teste: 32.80%
+
+Config 22/120: top=10       treino=traingd  ativ=tansig   div=[70 15 15] lr=0.0050 ep=500
+           → Global: 35.33% | Teste: 34.71%
+
+Config 23/120: top=10       treino=traingd  ativ=tansig   div=[70 15 15] lr=0.0010 ep=200
+           → Global: 32.65% | Teste: 32.41%
+
+Config 24/120: top=10       treino=traingd  ativ=tansig   div=[70 15 15] lr=0.0010 ep=500
+           → Global: 33.33% | Teste: 34.01%
+
+Config 25/120: top=10       treino=traingd  ativ=tansig   div=[80 10 10] lr=0.0100 ep=200
+           → Global: 32.27% | Teste: 32.12%
+
+Config 26/120: top=10       treino=traingd  ativ=tansig   div=[80 10 10] lr=0.0100 ep=500
+           → Global: 33.20% | Teste: 32.04%
+
+Config 27/120: top=10       treino=traingd  ativ=tansig   div=[80 10 10] lr=0.0050 ep=200
+           → Global: 36.01% | Teste: 36.76%
+
+Config 28/120: top=10       treino=traingd  ativ=tansig   div=[80 10 10] lr=0.0050 ep=500
+           → Global: 36.31% | Teste: 35.90%
+
+Config 29/120: top=10       treino=traingd  ativ=tansig   div=[80 10 10] lr=0.0010 ep=200
+           → Global: 35.34% | Teste: 34.78%
+
+Config 30/120: top=10       treino=traingd  ativ=tansig   div=[80 10 10] lr=0.0010 ep=500
+           → Global: 34.99% | Teste: 35.98%
+
+Config 31/120: top=10       treino=traingd  ativ=tansig   div=[60 20 20] lr=0.0100 ep=200
+           → Global: 32.10% | Teste: 32.61%
+
+Config 32/120: top=10       treino=traingd  ativ=tansig   div=[60 20 20] lr=0.0100 ep=500
+           → Global: 37.42% | Teste: 37.18%
+
+Config 33/120: top=10       treino=traingd  ativ=tansig   div=[60 20 20] lr=0.0050 ep=200
+           → Global: 32.06% | Teste: 31.87%
+
+Config 34/120: top=10       treino=traingd  ativ=tansig   div=[60 20 20] lr=0.0050 ep=500
+           → Global: 31.33% | Teste: 31.23%
+
+Config 35/120: top=10       treino=traingd  ativ=tansig   div=[60 20 20] lr=0.0010 ep=200
+           → Global: 33.37% | Teste: 32.56%
+
+Config 36/120: top=10       treino=traingd  ativ=tansig   div=[60 20 20] lr=0.0010 ep=500
+           → Global: 33.99% | Teste: 33.62%
+
+Config 37/120: top=10       treino=traingd  ativ=logsig   div=[70 15 15] lr=0.0100 ep=200
+           → Global: 35.15% | Teste: 34.73%
+
+Config 38/120: top=10       treino=traingd  ativ=logsig   div=[70 15 15] lr=0.0100 ep=500
+           → Global: 42.24% | Teste: 42.80%
+
+Config 39/120: top=10       treino=traingd  ativ=logsig   div=[70 15 15] lr=0.0050 ep=200
+           → Global: 32.76% | Teste: 32.64%
+
+Config 40/120: top=10       treino=traingd  ativ=logsig   div=[70 15 15] lr=0.0050 ep=500
+           → Global: 31.33% | Teste: 31.47%
+
+Config 41/120: top=10       treino=traingd  ativ=logsig   div=[70 15 15] lr=0.0010 ep=200
+           → Global: 33.98% | Teste: 33.88%
+
+Config 42/120: top=10       treino=traingd  ativ=logsig   div=[70 15 15] lr=0.0010 ep=500
+           → Global: 33.28% | Teste: 33.89%
+
+Config 43/120: top=10       treino=traingd  ativ=logsig   div=[80 10 10] lr=0.0100 ep=200
+           → Global: 36.52% | Teste: 36.24%
+
+Config 44/120: top=10       treino=traingd  ativ=logsig   div=[80 10 10] lr=0.0100 ep=500
+           → Global: 41.48% | Teste: 42.92%
+
+Config 45/120: top=10       treino=traingd  ativ=logsig   div=[80 10 10] lr=0.0050 ep=200
+           → Global: 31.42% | Teste: 31.76%
+
+Config 46/120: top=10       treino=traingd  ativ=logsig   div=[80 10 10] lr=0.0050 ep=500
+           → Global: 35.96% | Teste: 35.84%
+
+Config 47/120: top=10       treino=traingd  ativ=logsig   div=[80 10 10] lr=0.0010 ep=200
+           → Global: 34.68% | Teste: 35.92%
+
+Config 48/120: top=10       treino=traingd  ativ=logsig   div=[80 10 10] lr=0.0010 ep=500
+           → Global: 31.50% | Teste: 31.86%
+
+Config 49/120: top=10       treino=traingd  ativ=logsig   div=[60 20 20] lr=0.0100 ep=200
+           → Global: 36.12% | Teste: 36.12%
+
+Config 50/120: top=10       treino=traingd  ativ=logsig   div=[60 20 20] lr=0.0100 ep=500
+           → Global: 38.15% | Teste: 38.82%
+
+Config 51/120: top=10       treino=traingd  ativ=logsig   div=[60 20 20] lr=0.0050 ep=200
+           → Global: 36.24% | Teste: 35.47%
+
+Config 52/120: top=10       treino=traingd  ativ=logsig   div=[60 20 20] lr=0.0050 ep=500
+           → Global: 33.49% | Teste: 34.00%
+
+Config 53/120: top=10       treino=traingd  ativ=logsig   div=[60 20 20] lr=0.0010 ep=200
+           → Global: 34.86% | Teste: 34.39%
+
+Config 54/120: top=10       treino=traingd  ativ=logsig   div=[60 20 20] lr=0.0010 ep=500
+           → Global: 33.47% | Teste: 33.29%
+
+Config 55/120: top=10       treino=traingd  ativ=purelin  div=[70 15 15] lr=0.0100 ep=200
+           → Global: 50.35% | Teste: 50.45%
+
+Config 56/120: top=10       treino=traingd  ativ=purelin  div=[70 15 15] lr=0.0100 ep=500
+           → Global: 47.26% | Teste: 46.76%
+
+Config 57/120: top=10       treino=traingd  ativ=purelin  div=[70 15 15] lr=0.0050 ep=200
+           → Global: 50.41% | Teste: 50.45%
+
+Config 58/120: top=10       treino=traingd  ativ=purelin  div=[70 15 15] lr=0.0050 ep=500
+           → Global: 40.59% | Teste: 40.68%
+
+Config 59/120: top=10       treino=traingd  ativ=purelin  div=[70 15 15] lr=0.0010 ep=200
+           → Global: 44.89% | Teste: 44.31%
+
+Config 60/120: top=10       treino=traingd  ativ=purelin  div=[70 15 15] lr=0.0010 ep=500
+           → Global: 40.51% | Teste: 40.08%
+
+Config 61/120: top=10       treino=traingd  ativ=purelin  div=[80 10 10] lr=0.0100 ep=200
+           → Global: 46.25% | Teste: 46.26%
+
+Config 62/120: top=10       treino=traingd  ativ=purelin  div=[80 10 10] lr=0.0100 ep=500
+           → Global: 41.59% | Teste: 41.56%
+
+Config 63/120: top=10       treino=traingd  ativ=purelin  div=[80 10 10] lr=0.0050 ep=200
+           → Global: 38.14% | Teste: 37.02%
+
+Config 64/120: top=10       treino=traingd  ativ=purelin  div=[80 10 10] lr=0.0050 ep=500
+           → Global: 45.19% | Teste: 45.68%
+
+Config 65/120: top=10       treino=traingd  ativ=purelin  div=[80 10 10] lr=0.0010 ep=200
+           → Global: 43.31% | Teste: 42.38%
+
+Config 66/120: top=10       treino=traingd  ativ=purelin  div=[80 10 10] lr=0.0010 ep=500
+           → Global: 44.64% | Teste: 44.40%
+
+Config 67/120: top=10       treino=traingd  ativ=purelin  div=[60 20 20] lr=0.0100 ep=200
+           → Global: 44.82% | Teste: 43.86%
+
+Config 68/120: top=10       treino=traingd  ativ=purelin  div=[60 20 20] lr=0.0100 ep=500
+           → Global: 49.79% | Teste: 50.26%
+
+Config 69/120: top=10       treino=traingd  ativ=purelin  div=[60 20 20] lr=0.0050 ep=200
+           → Global: 40.11% | Teste: 40.39%
+
+Config 70/120: top=10       treino=traingd  ativ=purelin  div=[60 20 20] lr=0.0050 ep=500
+           → Global: 45.45% | Teste: 45.08%
+
+Config 71/120: top=10       treino=traingd  ativ=purelin  div=[60 20 20] lr=0.0010 ep=200
+           → Global: 43.02% | Teste: 42.87%
+
+Config 72/120: top=10       treino=traingd  ativ=purelin  div=[60 20 20] lr=0.0010 ep=500
+           → Global: 45.04% | Teste: 44.84%
+
+Config 73/120: top=10       treino=trainbr  ativ=softmax  div=[70 15 15] lr=0.0100 ep=200
+           → Global: 99.82% | Teste: 99.63%
+
+Config 74/120: top=10       treino=trainbr  ativ=softmax  div=[70 15 15] lr=0.0100 ep=500
+           → Global: 99.80% | Teste: 99.45%
+
+Config 75/120: top=10       treino=trainbr  ativ=softmax  div=[70 15 15] lr=0.0050 ep=200
+           → Global: 99.83% | Teste: 99.44%
+
+Config 76/120: top=10       treino=trainbr  ativ=softmax  div=[70 15 15] lr=0.0050 ep=500
+           → Global: 99.83% | Teste: 99.61%
+
+Config 77/120: top=10       treino=trainbr  ativ=softmax  div=[70 15 15] lr=0.0010 ep=200
+           → Global: 99.88% | Teste: 99.56%
+
+Config 78/120: top=10       treino=trainbr  ativ=softmax  div=[70 15 15] lr=0.0010 ep=500
+           → Global: 99.85% | Teste: 99.43%
+
+Config 79/120: top=10       treino=trainbr  ativ=softmax  div=[80 10 10] lr=0.0100 ep=200
+           → Global: 99.90% | Teste: 99.48%
+
+Config 80/120: top=10       treino=trainbr  ativ=softmax  div=[80 10 10] lr=0.0100 ep=500
+           → Global: 99.94% | Teste: 99.64%
+
+Config 81/120: top=10       treino=trainbr  ativ=softmax  div=[80 10 10] lr=0.0050 ep=200
+           → Global: 99.89% | Teste: 99.42%
+
+Config 82/120: top=10       treino=trainbr  ativ=softmax  div=[80 10 10] lr=0.0050 ep=500
+           → Global: 99.89% | Teste: 99.46%
+
+Config 83/120: top=10       treino=trainbr  ativ=softmax  div=[80 10 10] lr=0.0010 ep=200
+           → Global: 99.88% | Teste: 99.44%
+
+Config 84/120: top=10       treino=trainbr  ativ=softmax  div=[80 10 10] lr=0.0010 ep=500
+           → Global: 99.89% | Teste: 99.48%
+
+Config 85/120: top=10       treino=trainbr  ativ=softmax  div=[60 20 20] lr=0.0100 ep=200
+           → Global: 99.81% | Teste: 99.54%
+
+Config 86/120: top=10       treino=trainbr  ativ=softmax  div=[60 20 20] lr=0.0100 ep=500
+           → Global: 99.80% | Teste: 99.41%
+
+Config 87/120: top=10       treino=trainbr  ativ=softmax  div=[60 20 20] lr=0.0050 ep=200
+           → Global: 99.77% | Teste: 99.44%
+
+Config 88/120: top=10       treino=trainbr  ativ=softmax  div=[60 20 20] lr=0.0050 ep=500
+           → Global: 99.77% | Teste: 99.39%
+
+Config 89/120: top=10       treino=trainbr  ativ=softmax  div=[60 20 20] lr=0.0010 ep=200
+           → Global: 99.77% | Teste: 99.43%
+
+Config 90/120: top=10       treino=trainbr  ativ=softmax  div=[60 20 20] lr=0.0010 ep=500
+           → Global: 99.81% | Teste: 99.45%
+
+Config 91/120: top=10       treino=trainbr  ativ=tansig   div=[70 15 15] lr=0.0100 ep=200
+           → Global: 99.68% | Teste: 99.40%
+
+Config 92/120: top=10       treino=trainbr  ativ=tansig   div=[70 15 15] lr=0.0100 ep=500
+           → Global: 99.69% | Teste: 99.43%
+
+Config 93/120: top=10       treino=trainbr  ativ=tansig   div=[70 15 15] lr=0.0050 ep=200
+           → Global: 99.62% | Teste: 99.17%
+
+Config 94/120: top=10       treino=trainbr  ativ=tansig   div=[70 15 15] lr=0.0050 ep=500
+           → Global: 99.65% | Teste: 99.36%
+
+Config 95/120: top=10       treino=trainbr  ativ=tansig   div=[70 15 15] lr=0.0010 ep=200
+           → Global: 99.70% | Teste: 99.40%
+
+Config 96/120: top=10       treino=trainbr  ativ=tansig   div=[70 15 15] lr=0.0010 ep=500
+           → Global: 99.72% | Teste: 99.41%
+
+Config 97/120: top=10       treino=trainbr  ativ=tansig   div=[80 10 10] lr=0.0100 ep=200
+           → Global: 99.71% | Teste: 99.34%
+
+Config 98/120: top=10       treino=trainbr  ativ=tansig   div=[80 10 10] lr=0.0100 ep=500
+           → Global: 99.69% | Teste: 99.28%
+
+Config 99/120: top=10       treino=trainbr  ativ=tansig   div=[80 10 10] lr=0.0050 ep=200
+           → Global: 99.68% | Teste: 99.28%
+
+Config 100/120: top=10       treino=trainbr  ativ=tansig   div=[80 10 10] lr=0.0050 ep=500
+           → Global: 99.76% | Teste: 99.44%
+
+Config 101/120: top=10       treino=trainbr  ativ=tansig   div=[80 10 10] lr=0.0010 ep=200
+           → Global: 99.68% | Teste: 99.54%
+
+Config 102/120: top=10       treino=trainbr  ativ=tansig   div=[80 10 10] lr=0.0010 ep=500
+           → Global: 99.70% | Teste: 99.20%
+
+Config 103/120: top=10       treino=trainbr  ativ=tansig   div=[60 20 20] lr=0.0100 ep=200
+           → Global: 99.57% | Teste: 99.23%
+
+Config 104/120: top=10       treino=trainbr  ativ=tansig   div=[60 20 20] lr=0.0100 ep=500
+           → Global: 99.57% | Teste: 99.33%
+
+Config 105/120: top=10       treino=trainbr  ativ=tansig   div=[60 20 20] lr=0.0050 ep=200
+           → Global: 99.62% | Teste: 99.45%
+
+Config 106/120: top=10       treino=trainbr  ativ=tansig   div=[60 20 20] lr=0.0050 ep=500
+           → Global: 99.67% | Teste: 99.33%
+
+Config 107/120: top=10       treino=trainbr  ativ=tansig   div=[60 20 20] lr=0.0010 ep=200
+           → Global: 99.71% | Teste: 99.46%
+
+Config 108/120: top=10       treino=trainbr  ativ=tansig   div=[60 20 20] lr=0.0010 ep=500
+           → Global: 99.67% | Teste: 99.36%
+
+Config 109/120: top=10       treino=trainbr  ativ=logsig   div=[70 15 15] lr=0.0100 ep=200
+           → Global: 99.80% | Teste: 99.47%
+
+Config 110/120: top=10       treino=trainbr  ativ=logsig   div=[70 15 15] lr=0.0100 ep=500
+           → Global: 99.85% | Teste: 99.44%
+
+Config 111/120: top=10       treino=trainbr  ativ=logsig   div=[70 15 15] lr=0.0050 ep=200
+           → Global: 99.84% | Teste: 99.55%
+
+Config 112/120: top=10       treino=trainbr  ativ=logsig   div=[70 15 15] lr=0.0050 ep=500
+           → Global: 99.84% | Teste: 99.44%
+
+Config 113/120: top=10       treino=trainbr  ativ=logsig   div=[70 15 15] lr=0.0010 ep=200
+           → Global: 99.79% | Teste: 99.43%
+
+Config 114/120: top=10       treino=trainbr  ativ=logsig   div=[70 15 15] lr=0.0010 ep=500
+           → Global: 99.80% | Teste: 99.51%
+
+Config 115/120: top=10       treino=trainbr  ativ=logsig   div=[80 10 10] lr=0.0100 ep=200
+           → Global: 99.92% | Teste: 99.64%
+
+Config 116/120: top=10       treino=trainbr  ativ=logsig   div=[80 10 10] lr=0.0100 ep=500
+           → Global: 99.94% | Teste: 99.64%
+
+Config 117/120: top=10       treino=trainbr  ativ=logsig   div=[80 10 10] lr=0.0050 ep=200
+           → Global: 99.85% | Teste: 99.40%
+
+Config 118/120: top=10       treino=trainbr  ativ=logsig   div=[80 10 10] lr=0.0050 ep=500
+           → Global: 99.89% | Teste: 99.60%
+
+Config 119/120: top=10       treino=trainbr  ativ=logsig   div=[80 10 10] lr=0.0010 ep=200
+           → Global: 99.89% | Teste: 99.56%
+
+Config 120/120: top=10       treino=trainbr  ativ=logsig   div=[80 10 10] lr=0.0010 ep=500
+           → Global: 99.92% | Teste: 99.66%
+
+
+--- Tabela de resultados ---
+  Cfg  Top      Treino   Ativ     Divisão      Global%    Teste%
+  -----------------------------------------------------------------
+  1    10       traingd  softmax  [70 15 15]     47.64     47.57
+  2    10       traingd  softmax  [70 15 15]     59.22     58.64
+  3    10       traingd  softmax  [70 15 15]     37.67     37.91
+  4    10       traingd  softmax  [70 15 15]     45.02     44.69
+  5    10       traingd  softmax  [70 15 15]     33.16     32.77
+  6    10       traingd  softmax  [70 15 15]     39.54     39.68
+  7    10       traingd  softmax  [80 10 10]     43.61     42.76
+  8    10       traingd  softmax  [80 10 10]     62.19     62.54
+  9    10       traingd  softmax  [80 10 10]     33.84     34.90
+  10   10       traingd  softmax  [80 10 10]     45.66     45.10
+  11   10       traingd  softmax  [80 10 10]     34.39     33.54
+  12   10       traingd  softmax  [80 10 10]     38.09     39.28
+  13   10       traingd  softmax  [60 20 20]     38.17     37.85
+  14   10       traingd  softmax  [60 20 20]     58.80     59.12
+  15   10       traingd  softmax  [60 20 20]     40.99     40.78
+  16   10       traingd  softmax  [60 20 20]     44.23     44.37
+  17   10       traingd  softmax  [60 20 20]     32.64     31.93
+  18   10       traingd  softmax  [60 20 20]     36.48     36.60
+  19   10       traingd  tansig   [70 15 15]     33.73     34.05
+  20   10       traingd  tansig   [70 15 15]     35.54     36.21
+  21   10       traingd  tansig   [70 15 15]     32.42     32.80
+  22   10       traingd  tansig   [70 15 15]     35.33     34.71
+  23   10       traingd  tansig   [70 15 15]     32.65     32.41
+  24   10       traingd  tansig   [70 15 15]     33.33     34.01
+  25   10       traingd  tansig   [80 10 10]     32.27     32.12
+  26   10       traingd  tansig   [80 10 10]     33.20     32.04
+  27   10       traingd  tansig   [80 10 10]     36.01     36.76
+  28   10       traingd  tansig   [80 10 10]     36.31     35.90
+  29   10       traingd  tansig   [80 10 10]     35.34     34.78
+  30   10       traingd  tansig   [80 10 10]     34.99     35.98
+  31   10       traingd  tansig   [60 20 20]     32.10     32.61
+  32   10       traingd  tansig   [60 20 20]     37.42     37.18
+  33   10       traingd  tansig   [60 20 20]     32.06     31.87
+  34   10       traingd  tansig   [60 20 20]     31.33     31.23
+  35   10       traingd  tansig   [60 20 20]     33.37     32.56
+  36   10       traingd  tansig   [60 20 20]     33.99     33.62
+  37   10       traingd  logsig   [70 15 15]     35.15     34.73
+  38   10       traingd  logsig   [70 15 15]     42.24     42.80
+  39   10       traingd  logsig   [70 15 15]     32.76     32.64
+  40   10       traingd  logsig   [70 15 15]     31.33     31.47
+  41   10       traingd  logsig   [70 15 15]     33.98     33.88
+  42   10       traingd  logsig   [70 15 15]     33.28     33.89
+  43   10       traingd  logsig   [80 10 10]     36.52     36.24
+  44   10       traingd  logsig   [80 10 10]     41.48     42.92
+  45   10       traingd  logsig   [80 10 10]     31.42     31.76
+  46   10       traingd  logsig   [80 10 10]     35.96     35.84
+  47   10       traingd  logsig   [80 10 10]     34.68     35.92
+  48   10       traingd  logsig   [80 10 10]     31.50     31.86
+  49   10       traingd  logsig   [60 20 20]     36.12     36.12
+  50   10       traingd  logsig   [60 20 20]     38.15     38.82
+  51   10       traingd  logsig   [60 20 20]     36.24     35.47
+  52   10       traingd  logsig   [60 20 20]     33.49     34.00
+  53   10       traingd  logsig   [60 20 20]     34.86     34.39
+  54   10       traingd  logsig   [60 20 20]     33.47     33.29
+  55   10       traingd  purelin  [70 15 15]     50.35     50.45
+  56   10       traingd  purelin  [70 15 15]     47.26     46.76
+  57   10       traingd  purelin  [70 15 15]     50.41     50.45
+  58   10       traingd  purelin  [70 15 15]     40.59     40.68
+  59   10       traingd  purelin  [70 15 15]     44.89     44.31
+  60   10       traingd  purelin  [70 15 15]     40.51     40.08
+  61   10       traingd  purelin  [80 10 10]     46.25     46.26
+  62   10       traingd  purelin  [80 10 10]     41.59     41.56
+  63   10       traingd  purelin  [80 10 10]     38.14     37.02
+  64   10       traingd  purelin  [80 10 10]     45.19     45.68
+  65   10       traingd  purelin  [80 10 10]     43.31     42.38
+  66   10       traingd  purelin  [80 10 10]     44.64     44.40
+  67   10       traingd  purelin  [60 20 20]     44.82     43.86
+  68   10       traingd  purelin  [60 20 20]     49.79     50.26
+  69   10       traingd  purelin  [60 20 20]     40.11     40.39
+  70   10       traingd  purelin  [60 20 20]     45.45     45.08
+  71   10       traingd  purelin  [60 20 20]     43.02     42.87
+  72   10       traingd  purelin  [60 20 20]     45.04     44.84
+  73   10       trainbr  softmax  [70 15 15]     99.82     99.63
+  74   10       trainbr  softmax  [70 15 15]     99.80     99.45
+  75   10       trainbr  softmax  [70 15 15]     99.83     99.44
+  76   10       trainbr  softmax  [70 15 15]     99.83     99.61
+  77   10       trainbr  softmax  [70 15 15]     99.88     99.56
+  78   10       trainbr  softmax  [70 15 15]     99.85     99.43
+  79   10       trainbr  softmax  [80 10 10]     99.90     99.48
+  80   10       trainbr  softmax  [80 10 10]     99.94     99.64
+  81   10       trainbr  softmax  [80 10 10]     99.89     99.42
+  82   10       trainbr  softmax  [80 10 10]     99.89     99.46
+  83   10       trainbr  softmax  [80 10 10]     99.88     99.44
+  84   10       trainbr  softmax  [80 10 10]     99.89     99.48
+  85   10       trainbr  softmax  [60 20 20]     99.81     99.54
+  86   10       trainbr  softmax  [60 20 20]     99.80     99.41
+  87   10       trainbr  softmax  [60 20 20]     99.77     99.44
+  88   10       trainbr  softmax  [60 20 20]     99.77     99.39
+  89   10       trainbr  softmax  [60 20 20]     99.77     99.43
+  90   10       trainbr  softmax  [60 20 20]     99.81     99.45
+  91   10       trainbr  tansig   [70 15 15]     99.68     99.40
+  92   10       trainbr  tansig   [70 15 15]     99.69     99.43
+  93   10       trainbr  tansig   [70 15 15]     99.62     99.17
+  94   10       trainbr  tansig   [70 15 15]     99.65     99.36
+  95   10       trainbr  tansig   [70 15 15]     99.70     99.40
+  96   10       trainbr  tansig   [70 15 15]     99.72     99.41
+  97   10       trainbr  tansig   [80 10 10]     99.71     99.34
+  98   10       trainbr  tansig   [80 10 10]     99.69     99.28
+  99   10       trainbr  tansig   [80 10 10]     99.68     99.28
+  100  10       trainbr  tansig   [80 10 10]     99.76     99.44
+  101  10       trainbr  tansig   [80 10 10]     99.68     99.54
+  102  10       trainbr  tansig   [80 10 10]     99.70     99.20
+  103  10       trainbr  tansig   [60 20 20]     99.57     99.23
+  104  10       trainbr  tansig   [60 20 20]     99.57     99.33
+  105  10       trainbr  tansig   [60 20 20]     99.62     99.45
+  106  10       trainbr  tansig   [60 20 20]     99.67     99.33
+  107  10       trainbr  tansig   [60 20 20]     99.71     99.46
+  108  10       trainbr  tansig   [60 20 20]     99.67     99.36
+  109  10       trainbr  logsig   [70 15 15]     99.80     99.47
+  110  10       trainbr  logsig   [70 15 15]     99.85     99.44
+  111  10       trainbr  logsig   [70 15 15]     99.84     99.55
+  112  10       trainbr  logsig   [70 15 15]     99.84     99.44
+  113  10       trainbr  logsig   [70 15 15]     99.79     99.43
+  114  10       trainbr  logsig   [70 15 15]     99.80     99.51
+  115  10       trainbr  logsig   [80 10 10]     99.92     99.64
+  116  10       trainbr  logsig   [80 10 10]     99.94     99.64
+  117  10       trainbr  logsig   [80 10 10]     99.85     99.40
+  118  10       trainbr  logsig   [80 10 10]     99.89     99.60
+  119  10       trainbr  logsig   [80 10 10]     99.89     99.56
+  120  10       trainbr  logsig   [80 10 10]     99.92     99.66
+
+3 melhores configurações (por acc de teste):
+  1º: Config 120 — Teste: 99.66%
+  2º: Config 115 — Teste: 99.64%
+  3º: Config 116 — Teste: 99.64%
+
+3 piores configurações (por acc de teste):
+  1º: Config 34 — Teste: 31.23%
+  2º: Config 40 — Teste: 31.47%
+  3º: Config 45 — Teste: 31.76%
+
+--- b) Normalizado vs Não Normalizado ---
+
+Melhor 1 (Config 120) — lr=0.0010 ep=500:
+  Não normalizado — Global: 99.92% | Teste: 99.68%
+  Normalizado     — Global: 99.90% | Teste: 99.50%
+
+Melhor 2 (Config 115) — lr=0.0100 ep=200:
+  Não normalizado — Global: 99.88% | Teste: 99.30%
+  Normalizado     — Global: 99.88% | Teste: 99.72%
+
+Melhor 3 (Config 116) — lr=0.0100 ep=500:
+  Não normalizado — Global: 99.88% | Teste: 99.50%
+  Normalizado     — Global: 99.91% | Teste: 99.60%
+
+Pior 1 (Config 34) — lr=0.0050 ep=500:
+  Não normalizado — Global: 34.76% | Teste: 35.05%
+  Normalizado     — Global: 34.01% | Teste: 33.80%
+
+Pior 2 (Config 40) — lr=0.0050 ep=500:
+  Não normalizado — Global: 37.45% | Teste: 38.08%
+  Normalizado     — Global: 37.10% | Teste: 37.13%
+
+Pior 3 (Config 45) — lr=0.0050 ep=200:
+  Não normalizado — Global: 37.19% | Teste: 37.30%
+  Normalizado     — Global: 30.70% | Teste: 30.56%
+
+Resumo Normalizado vs Não normalizado:
+              Não norm. (%)      Norm. (%)
+  ------------------------------------------
+  Melhor 1    G:99.92 T:99.68   G:99.90 T:99.50
+  Melhor 2    G:99.88 T:99.30   G:99.88 T:99.72
+  Melhor 3    G:99.88 T:99.50   G:99.91 T:99.60
+  Pior 1      G:34.76 T:35.05   G:34.01 T:33.80
+  Pior 2      G:37.45 T:38.08   G:37.10 T:37.13
+  Pior 3      G:37.19 T:37.30   G:30.70 T:30.56
+
+--- c) A gravar as 3 melhores e as 3 piores redes ---
+  Rede 1 guardada: C:\Users\rodri\Documents\GitHub\CR_TP\results\best_net1.mat (Teste: 99.66%)
+  Rede 2 guardada: C:\Users\rodri\Documents\GitHub\CR_TP\results\best_net2.mat (Teste: 99.64%)
+  Rede 3 guardada: C:\Users\rodri\Documents\GitHub\CR_TP\results\best_net3.mat (Teste: 99.64%)
+  Rede pior 1 guardada: C:\Users\rodri\Documents\GitHub\CR_TP\results\worst_net1.mat (Teste: 31.23%)
+  Rede pior 2 guardada: C:\Users\rodri\Documents\GitHub\CR_TP\results\worst_net2.mat (Teste: 31.47%)
+  Rede pior 3 guardada: C:\Users\rodri\Documents\GitHub\CR_TP\results\worst_net3.mat (Teste: 31.76%)
+
+A gerar plotconfusion das 3 melhores redes...
+
+--- d) Teste no dataset_TP_test.csv ---
+
+========= TESTE DAS 3 MELHORES REDES =========
+
+--- Rede 1 ---
+  Topologia:      10
+  Func. treino:   trainbr
+  Func. ativação: logsig
+  Divisão:        [80 10 10]
+  Precisão global no teste: 100.00%
+  Precisão por classe:
+    Normal                : 100.00%
+    ElectricalFailure     : 100.00%
+    MechanicalFailure     : 100.00%
+
+--- Rede 2 ---
+  Topologia:      10
+  Func. treino:   trainbr
+  Func. ativação: logsig
+  Divisão:        [80 10 10]
+  Precisão global no teste: 100.00%
+  Precisão por classe:
+    Normal                : 100.00%
+    ElectricalFailure     : 100.00%
+    MechanicalFailure     : 100.00%
+
+--- Rede 3 ---
+  Topologia:      10
+  Func. treino:   trainbr
+  Func. ativação: logsig
+  Divisão:        [80 10 10]
+  Precisão global no teste: 100.00%
+  Precisão por classe:
+    Normal                : 100.00%
+    ElectricalFailure     : 100.00%
+    MechanicalFailure     : 100.00%
+
+
+=== TAREFA 3.3 CONCLUÍDA ===
+--- Tarefa 3.4: Comparação CBR vs RN ---
+=== TAREFA 3.4 — COMPARAÇÃO CBR vs RN ===
+
+A carregar dataset tratado...
+A avaliar o CBR...
+A reexecutar as 3 melhores e as 3 piores RN com e sem normalização...
+  Melhor 1 [nao_normalizado] -> treino(media global 99.88% / teste 99.46%) | teste final 100.00%
+  Melhor 1 [normalizado] -> treino(media global 99.89% / teste 99.52%) | teste final 100.00%
+  Melhor 2 [nao_normalizado] -> treino(media global 99.93% / teste 99.66%) | teste final 100.00%
+  Melhor 2 [normalizado] -> treino(media global 99.88% / teste 99.66%) | teste final 100.00%
+  Melhor 3 [nao_normalizado] -> treino(media global 99.91% / teste 99.64%) | teste final 100.00%
+  Melhor 3 [normalizado] -> treino(media global 99.90% / teste 99.68%) | teste final 100.00%
+  Pior 1 [nao_normalizado] -> treino(media global 34.54% / teste 34.67%) | teste final 63.33%
+  Pior 1 [normalizado] -> treino(media global 35.49% / teste 34.91%) | teste final 43.33%
+  Pior 2 [nao_normalizado] -> treino(media global 39.86% / teste 38.88%) | teste final 73.33%
+  Pior 2 [normalizado] -> treino(media global 32.97% / teste 33.19%) | teste final 40.00%
+  Pior 3 [nao_normalizado] -> treino(media global 33.54% / teste 33.42%) | teste final 40.00%
+  Pior 3 [normalizado] -> treino(media global 34.28% / teste 34.68%) | teste final 66.67%
+               Metodo                Familia    Normalizacao    Acertos    Acc_Global    Acc_Normal    Acc_Electrical    Acc_Mechanical
+    _____________________________    _______    ____________    _______    __________    __________    ______________    ______________
+
+    "CBR melhor sem normalização"     "CBR"        "não"          30          100           100             100               100      
+    "CBR melhor com normalização"     "CBR"        "sim"          30          100           100             100               100      
+
+
+Melhor resultado global (CBR vs RN base): CBR melhor sem normalização (100.00%)
+Melhor resultado global nas RN comparadas: Melhor 1 - nao_normalizado (100.00%)
+
+Resultados guardados em results/comparacao_cbr_vs_rn.mat e .csv
+Resultados RN guardados em results/comparacao_rn_3best_3worst_norm.csv
+=== TAREFA 3.4 CONCLUÍDA ===
