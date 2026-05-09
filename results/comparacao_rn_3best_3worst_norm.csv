@@ -1,0 +1,13 @@
+Metodo,Grupo,Normalizacao,Acertos,Acc_Global,Acc_Normal,Acc_Electrical,Acc_Mechanical
+Melhor 1 - nao_normalizado,Melhor 1,não,30,100,100,100,100
+Melhor 1 - normalizado,Melhor 1,sim,30,100,100,100,100
+Melhor 2 - nao_normalizado,Melhor 2,não,30,100,100,100,100
+Melhor 2 - normalizado,Melhor 2,sim,30,100,100,100,100
+Melhor 3 - nao_normalizado,Melhor 3,não,30,100,100,100,100
+Melhor 3 - normalizado,Melhor 3,sim,30,100,100,100,100
+Pior 1 - nao_normalizado,Pior 1,não,14,46.6666666666667,38.4615384615385,70,28.5714285714286
+Pior 1 - normalizado,Pior 1,sim,14,46.6666666666667,84.6153846153846,0,42.8571428571429
+Pior 2 - nao_normalizado,Pior 2,não,16,53.3333333333333,53.8461538461538,20,100
+Pior 2 - normalizado,Pior 2,sim,13,43.3333333333333,30.7692307692308,20,100
+Pior 3 - nao_normalizado,Pior 3,não,21,70,92.3076923076923,90,0
+Pior 3 - normalizado,Pior 3,sim,21,70,92.3076923076923,30,85.7142857142857

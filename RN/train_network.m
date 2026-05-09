@@ -1,4 +1,4 @@
-function [media_global, media_teste, melhor_net, melhor_tr] = train_network(X, T, topologia, func_treino, func_ativacao, divisao)
+function [media_global, media_teste, melhor_net, melhor_tr] = train_network(X, T, topologia, func_treino, func_ativacao, divisao, params)
 % TRAIN_NETWORK — treina e avalia uma configuração de rede (10 repetições)
 %
 % Descrição:
@@ -24,6 +24,14 @@ function [media_global, media_teste, melhor_net, melhor_tr] = train_network(X, T
 % Nota didática: ao usar `trainbr` pode não existir divisão de treino/teste
 % interna (tr.testInd vazio). O código trata esse caso usando todo o dataset
 % como aproximação quando necessário.
+
+% `params` (opcional) — struct com hiperparâmetros, e.g.:
+%   params.lr     - learning rate (ex.: 0.01)
+%   params.epochs - número máximo de épocas (ex.: 500)
+
+if nargin < 7
+    params = struct();
+end
 
     % Número de repetições (para reduzir variabilidade)
     N_REP = 10;
@@ -57,7 +65,17 @@ function [media_global, media_teste, melhor_net, melhor_tr] = train_network(X, T
 
         % --- Parâmetros de treino ---
         net.trainParam.showWindow = false; % desativa interface gráfica
-        net.trainParam.epochs     = 500;   % número máximo de épocas
+        % epochs e learning rate podem ser substituídos por `params`
+        if isfield(params, 'epochs')
+            net.trainParam.epochs = params.epochs;
+        else
+            net.trainParam.epochs = 500;
+        end
+        if isfield(params, 'lr')
+            % Nem todos os algoritmos usam explicitamente lr, mas definir
+            % não causa erro (será ignorado quando inaplicável).
+            net.trainParam.lr = params.lr;
+        end
         net.trainParam.max_fail   = 10;    % early stopping (validação)
 
         % --- Treinar a rede ---

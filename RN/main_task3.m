@@ -58,32 +58,42 @@ warning('off', 'all');
 % -------------------------------------------------------------------------
 fprintf('--- a) Estudo de configurações (10 repetições cada) ---\n\n');
 
-% Definir configurações a testar
-% Cada linha: {topologia, func_treino, func_ativacao, divisao}
-configs = {
-    % Topologia default
-    [10],      'trainlm',  'softmax',  [70 15 15];
-    [10],      'trainbr',  'softmax',  [70 15 15];
-    [10],      'traingd',  'softmax',  [70 15 15];
-    [10],      'trainscg', 'softmax',  [70 15 15];
-    % Mais neurónios
-    [20],      'trainlm',  'softmax',  [70 15 15];
-    [50],      'trainlm',  'softmax',  [70 15 15];
-    % Duas camadas
-    [20 10],   'trainlm',  'softmax',  [70 15 15];
-    [10 10],   'trainscg', 'softmax',  [70 15 15];
-    % Funções de ativação na saída
-    [10],      'trainlm',  'tansig',   [70 15 15];
-    [10],      'trainlm',  'logsig',   [70 15 15];
-    [10],      'trainlm',  'purelin',  [70 15 15];
-    % Diferentes divisões
-    [10],      'trainlm',  'softmax',  [80 10 10];
-    [10],      'trainlm',  'softmax',  [60 20 20];
-    [20 10],   'trainscg', 'softmax',  [80 10 10];
-    % Combinações extra
-    [30 15],   'trainlm',  'softmax',  [70 15 15];
-    [20],      'trainbr',  'softmax',  [80 10 10];
-};
+% Gerar programaticamente as configurações relevantes segundo o enunciado
+% Reduzimos opções menos relevantes e incluímos hiperparâmetros (learning rate, epochs)
+topologies = {[10], [20], [50], [20 10], [30 15]}; % topologias mais relevantes
+train_funcs = {'traingd', 'trainbr', 'trainscg', 'trainlm'}; % métodos pedidos
+act_funcs = {'softmax', 'tansig', 'logsig', 'purelin'}; % funções de saída a testar
+divisions = {[70 15 15], [80 10 10], [60 20 20]}; % divisões mais comuns
+
+% Hiperparâmetros adicionais a testar
+learning_rates = [0.01, 0.005, 0.001];
+epochs_list = [200, 500];
+
+% Limite prático para evitar combinatória excessiva (ajustável)
+max_combinations = 120;
+
+configs = {};
+for ti = 1:length(topologies)
+    for fi = 1:length(train_funcs)
+        for ai = 1:length(act_funcs)
+            for di = 1:length(divisions)
+                for li = 1:length(learning_rates)
+                    for ei = 1:length(epochs_list)
+                        configs = [configs; {topologies{ti}, train_funcs{fi}, act_funcs{ai}, divisions{di}, learning_rates(li), epochs_list(ei)}];
+                        if size(configs, 1) >= max_combinations
+                            break;
+                        end
+                    end
+                    if size(configs, 1) >= max_combinations, break; end
+                end
+                if size(configs, 1) >= max_combinations, break; end
+            end
+            if size(configs, 1) >= max_combinations, break; end
+        end
+        if size(configs, 1) >= max_combinations, break; end
+    end
+    if size(configs, 1) >= max_combinations, break; end
+end
 
 n_configs = size(configs, 1);
 resultados = zeros(n_configs, 2); % col1=media_global, col2=media_teste
@@ -96,6 +106,8 @@ melhores_nets = {[], [], []};
 melhores_cfgs = {[], [], []};
 piores_acc    = [inf inf inf];
 piores_idx    = [0 0 0];
+piores_nets   = {[], [], []};
+piores_cfgs   = {[], [], []};
 
 for c = 1:n_configs
 
@@ -103,11 +115,14 @@ for c = 1:n_configs
     ft    = configs{c, 2};
     fa    = configs{c, 3};
     div   = configs{c, 4};
+    lr    = configs{c, 5};
+    ep    = configs{c, 6};
 
-    fprintf('Config %2d/%d: top=%-8s treino=%-8s ativ=%-8s div=%s\n', ...
-            c, n_configs, mat2str(top), ft, fa, mat2str(div));
+    fprintf('Config %2d/%d: top=%-8s treino=%-8s ativ=%-8s div=%s lr=%.4f ep=%d\n', ...
+        c, n_configs, mat2str(top), ft, fa, mat2str(div), lr, ep);
 
-    [mg, mt, melhor_net, ~] = train_network(X, T, top, ft, fa, div);
+    params = struct('lr', lr, 'epochs', ep);
+    [mg, mt, melhor_net, ~] = train_network(X, T, top, ft, fa, div, params);
 
     resultados(c, 1) = mg;
     resultados(c, 2) = mt;
@@ -120,7 +135,7 @@ for c = 1:n_configs
         melhores_acc(pos_min)  = mt;
         melhores_idx(pos_min)  = c;
         melhores_nets{pos_min} = melhor_net;
-        melhores_cfgs{pos_min} = configs(c, :);
+        melhores_cfgs{pos_min} = configs(c, :); % contém também lr e epochs
     end
 
     % Atualizar as 3 piores
@@ -128,6 +143,8 @@ for c = 1:n_configs
     if mt < val_max
         piores_acc(pos_max) = mt;
         piores_idx(pos_max) = c;
+        piores_nets{pos_max} = melhor_net;
+        piores_cfgs{pos_max} = configs(c, :);
     end
 
 end
@@ -141,6 +158,8 @@ melhores_cfgs_ord = melhores_cfgs(ord);
 % Ordenar piores por acc ascendente
 [piores_acc_ord, ord2] = sort(piores_acc, 'ascend');
 piores_idx_ord = piores_idx(ord2);
+piores_nets_ord = piores_nets(ord2);
+piores_cfgs_ord = piores_cfgs(ord2);
 
 % Mostrar tabela de resultados
 fprintf('\n--- Tabela de resultados ---\n');
@@ -180,13 +199,17 @@ for k = 1:6
     ft  = configs{c, 2};
     fa  = configs{c, 3};
     div = configs{c, 4};
+    lr  = configs{c, 5};
+    ep  = configs{c, 6};
 
-    fprintf('%s (Config %d):\n', labels{k}, c);
+    params = struct('lr', lr, 'epochs', ep);
+
+    fprintf('%s (Config %d) — lr=%.4f ep=%d:\n', labels{k}, c, lr, ep);
 
     % Sem normalização
-    [mg_nn, mt_nn, ~, ~] = train_network(X,      T, top, ft, fa, div);
+    [mg_nn, mt_nn, ~, ~] = train_network(X,      T, top, ft, fa, div, params);
     % Com normalização
-    [mg_n,  mt_n,  ~, ~] = train_network(X_norm, T, top, ft, fa, div);
+    [mg_n,  mt_n,  ~, ~] = train_network(X_norm, T, top, ft, fa, div, params);
 
     res_nonnorm(k, :) = [mg_nn, mt_nn];
     res_norm(k, :)    = [mg_n,  mt_n];
@@ -208,9 +231,9 @@ end
     clear cleanup_warning;
 
 % -------------------------------------------------------------------------
-% c) Gravar as 3 melhores redes
+% c) Gravar as 3 melhores e as 3 piores redes
 % -------------------------------------------------------------------------
-fprintf('\n--- c) A gravar as 3 melhores redes ---\n');
+fprintf('\n--- c) A gravar as 3 melhores e as 3 piores redes ---\n');
 
 if ~exist(results_dir, 'dir')
     mkdir(results_dir);
@@ -224,11 +247,35 @@ for k = 1:3
     config.func_treino  = cfg_linha{2};
     config.func_ativacao= cfg_linha{3};
     config.divisao      = cfg_linha{4};
+    % incluir hiperparâmetros usados (lr, epochs)
+    if length(cfg_linha) >= 6
+        config.learning_rate = cfg_linha{5};
+        config.epochs = cfg_linha{6};
+    end
     config.acc_teste    = melhores_acc_ord(k);
 
     nome_ficheiro = fullfile(proj_root, 'results', sprintf('best_net%d.mat', k));
     save(nome_ficheiro, 'net', 'config');
     fprintf('  Rede %d guardada: %s (Teste: %.2f%%)\n', k, nome_ficheiro, melhores_acc_ord(k));
+end
+
+for k = 1:3
+    net = piores_nets_ord{k};
+    cfg_linha = piores_cfgs_ord{k};
+    config = struct();
+    config.topologia    = cfg_linha{1};
+    config.func_treino  = cfg_linha{2};
+    config.func_ativacao= cfg_linha{3};
+    config.divisao      = cfg_linha{4};
+    if length(cfg_linha) >= 6
+        config.learning_rate = cfg_linha{5};
+        config.epochs = cfg_linha{6};
+    end
+    config.acc_teste    = piores_acc_ord(k);
+
+    nome_ficheiro = fullfile(proj_root, 'results', sprintf('worst_net%d.mat', k));
+    save(nome_ficheiro, 'net', 'config');
+    fprintf('  Rede pior %d guardada: %s (Teste: %.2f%%)\n', k, nome_ficheiro, piores_acc_ord(k));
 end
 
 % plotconfusion das 3 melhores (dataset completo)

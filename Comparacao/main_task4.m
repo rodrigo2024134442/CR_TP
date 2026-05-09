@@ -3,7 +3,9 @@
 % =========================================================================
 % Objetivos:
 %   - Comparar o melhor CBR sem normalização e com normalização
-%   - Comparar as 3 melhores redes neuronais gravadas na tarefa 3.3
+%   - Repetir experiências com as 3 melhores e 3 piores RN da tarefa 3.3
+%     e comparar normalizado vs não normalizado
+%   - Guardar `plotconfusion` e matrizes de confusão relevantes para o relatório
 %   - Gerar tabelas e gráficos de apoio ao relatório
 % =========================================================================
 
@@ -167,73 +169,116 @@ for m = 1:numel(cbr_methods)
 end
 
 % -------------------------------------------------------------------------
-% 4. Avaliar as 3 melhores RN
+% 4. Repetir experiências com as 3 melhores e 3 piores RN
 % -------------------------------------------------------------------------
-fprintf('A avaliar as 3 melhores redes neuronais...\n');
+fprintf('A reexecutar as 3 melhores e as 3 piores RN com e sem normalização...\n');
 
-rn_files = {
-    fullfile(results_dir, 'best_net1.mat');
-    fullfile(results_dir, 'best_net2.mat');
-    fullfile(results_dir, 'best_net3.mat')
-};
+rn_cases = [
+    struct('label', 'Melhor 1', 'file', fullfile(results_dir, 'best_net1.mat')),
+    struct('label', 'Melhor 2', 'file', fullfile(results_dir, 'best_net2.mat')),
+    struct('label', 'Melhor 3', 'file', fullfile(results_dir, 'best_net3.mat')),
+    struct('label', 'Pior 1',   'file', fullfile(results_dir, 'worst_net1.mat')),
+    struct('label', 'Pior 2',   'file', fullfile(results_dir, 'worst_net2.mat')),
+    struct('label', 'Pior 3',   'file', fullfile(results_dir, 'worst_net3.mat'))
+];
 
-for k = 1:3
-    if ~isfile(rn_files{k})
-        warning('Ficheiro %s não encontrado. A rede %d será ignorada.', rn_files{k}, k);
+rn_names = strings(0, 1);
+rn_grupo = strings(0, 1);
+rn_norm  = strings(0, 1);
+rn_acertos = [];
+rn_acc_global = [];
+rn_acc_normal = [];
+rn_acc_electrical = [];
+rn_acc_mechanical = [];
+
+for k = 1:numel(rn_cases)
+    if ~isfile(rn_cases(k).file)
+        warning('Ficheiro %s não encontrado. A configuração %s será ignorada.', rn_cases(k).file, rn_cases(k).label);
         continue;
     end
 
-    dados = load(rn_files{k}, 'net', 'config'); %#ok<NASGU>
-    net = dados.net;
+    dados_cfg = load(rn_cases(k).file, 'net', 'config');
+    cfg = dados_cfg.config;
 
-    Y = net(X_test);
-    [~, idx_pred] = max(Y, [], 1);
-    [~, idx_real] = max(T_test, [], 1);
-
-    classe_prevista = string(classes(idx_pred));
-    classe_real = string(classes(idx_real));
-
-    [acc_global, acc_classes, n_acertos] = calcular_metricas(classe_real, classe_prevista, classes);
-    matriz_confusao = confusionmat(categorical(classe_real, classes), categorical(classe_prevista, classes));
-
-    method_names(end+1, 1) = sprintf('RN melhor %d', k); %#ok<SAGROW>
-    familias(end+1, 1) = "RN";
-    normalizacoes(end+1, 1) = "não aplicável";
-    acertos_vec(end+1, 1) = n_acertos; %#ok<SAGROW>
-    acc_global_vec(end+1, 1) = acc_global; %#ok<SAGROW>
-    acc_normal_vec(end+1, 1) = acc_classes(1); %#ok<SAGROW>
-    acc_electrical_vec(end+1, 1) = acc_classes(2); %#ok<SAGROW>
-    acc_mechanical_vec(end+1, 1) = acc_classes(3); %#ok<SAGROW>
-
-    fig = figure('Name', sprintf('RN melhor %d', k), 'Color', 'w');
-    plotconfusion(T_test, Y);
-    force_black_text(fig);
-    title(sprintf('RN melhor %d — dataset de teste', k));
-    saveas(fig, fullfile(results_dir, sprintf('rn_best_%d_plotconfusion.fig', k)));
-    print(fig, fullfile(results_dir, sprintf('rn_best_%d_plotconfusion.png', k)), '-dpng', '-r150');
-
-    fig2 = figure('Name', sprintf('RN melhor %d — matriz', k), 'Color', 'w');
-    imagesc(matriz_confusao);
-    colormap(parula);
-    colorbar;
-    axis equal tight;
-    set(gca, 'Color', 'w', 'XColor', 'k', 'YColor', 'k');
-    xticks(1:numel(classes));
-    yticks(1:numel(classes));
-    xticklabels(classes);
-    yticklabels(classes);
-    xlabel('Classe prevista');
-    ylabel('Classe real');
-    title(sprintf('RN melhor %d — matriz de confusão', k));
-    for r = 1:numel(classes)
-        for c = 1:numel(classes)
-            text(c, r, sprintf('%d', matriz_confusao(r, c)), ...
-                'HorizontalAlignment', 'center', 'Color', 'k', 'FontWeight', 'bold');
-        end
+    if isfield(cfg, 'learning_rate')
+        params = struct('lr', cfg.learning_rate, 'epochs', cfg.epochs);
+    else
+        params = struct();
     end
-    force_black_text(fig2);
-    saveas(fig2, fullfile(results_dir, sprintf('rn_best_%d_matrix.fig', k)));
-    print(fig2, fullfile(results_dir, sprintf('rn_best_%d_matrix.png', k)), '-dpng', '-r150');
+
+    cfg_nome = rn_cases(k).label;
+
+    for usa_norm = [false, true]
+        if usa_norm
+            trainX = X_norm;
+            testX  = X_test_norm;
+            train_table = data_norm;
+            test_table  = dados_teste_norm;
+            sufixo_norm = 'normalizado';
+        else
+            trainX = X;
+            testX  = X_test;
+            train_table = data;
+            test_table  = dados_teste;
+            sufixo_norm = 'nao_normalizado';
+        end
+
+        [media_global, media_teste, melhor_net, ~] = train_network( ...
+            trainX, build_targets(train_table), cfg.topologia, cfg.func_treino, ...
+            cfg.func_ativacao, cfg.divisao, params);
+
+        % Avaliação no dataset de teste correspondente
+        Y = melhor_net(testX);
+        [~, idx_pred] = max(Y, [], 1);
+        [~, idx_real] = max(T_test, [], 1);
+        classe_prevista = string(classes(idx_pred));
+        classe_real = string(classes(idx_real));
+
+        [acc_global, acc_classes, n_acertos] = calcular_metricas(classe_real, classe_prevista, classes);
+        matriz_confusao = confusionmat(categorical(classe_real, classes), categorical(classe_prevista, classes));
+
+        rn_names(end+1, 1) = string(sprintf('%s - %s', cfg_nome, sufixo_norm)); %#ok<SAGROW>
+        rn_grupo(end+1, 1) = string(cfg_nome); %#ok<SAGROW>
+        rn_norm(end+1, 1) = string(bool2txt(usa_norm)); %#ok<SAGROW>
+        rn_acertos(end+1, 1) = n_acertos; %#ok<SAGROW>
+        rn_acc_global(end+1, 1) = acc_global; %#ok<SAGROW>
+        rn_acc_normal(end+1, 1) = acc_classes(1); %#ok<SAGROW>
+        rn_acc_electrical(end+1, 1) = acc_classes(2); %#ok<SAGROW>
+        rn_acc_mechanical(end+1, 1) = acc_classes(3); %#ok<SAGROW>
+
+        fig = figure('Name', sprintf('%s - %s', cfg_nome, sufixo_norm), 'Color', 'w');
+        plotconfusion(build_targets(test_table), Y);
+        force_black_text(fig);
+        title(sprintf('%s — %s', cfg_nome, sufixo_norm));
+        saveas(fig, fullfile(results_dir, sprintf('%s_plotconfusion_%s.fig', matlab.lang.makeValidName(cfg_nome), sufixo_norm)));
+        print(fig, fullfile(results_dir, sprintf('%s_plotconfusion_%s.png', matlab.lang.makeValidName(cfg_nome), sufixo_norm)), '-dpng', '-r150');
+
+        fig2 = figure('Name', sprintf('%s - %s matrix', cfg_nome, sufixo_norm), 'Color', 'w');
+        imagesc(matriz_confusao);
+        colormap(parula);
+        colorbar;
+        axis equal tight;
+        set(gca, 'Color', 'w', 'XColor', 'k', 'YColor', 'k');
+        xticks(1:numel(classes));
+        yticks(1:numel(classes));
+        xticklabels(classes);
+        yticklabels(classes);
+        xlabel('Classe prevista');
+        ylabel('Classe real');
+        title(sprintf('%s — %s', cfg_nome, sufixo_norm));
+        for r = 1:numel(classes)
+            for c = 1:numel(classes)
+                text(c, r, sprintf('%d', matriz_confusao(r, c)), ...
+                    'HorizontalAlignment', 'center', 'Color', 'k', 'FontWeight', 'bold');
+            end
+        end
+        force_black_text(fig2);
+        saveas(fig2, fullfile(results_dir, sprintf('%s_matrix_%s.fig', matlab.lang.makeValidName(cfg_nome), sufixo_norm)));
+        print(fig2, fullfile(results_dir, sprintf('%s_matrix_%s.png', matlab.lang.makeValidName(cfg_nome), sufixo_norm)), '-dpng', '-r150');
+
+        fprintf('  %s [%s] -> treino(media global %.2f%% / teste %.2f%%) | teste final %.2f%%\n', ...
+            cfg_nome, sufixo_norm, media_global, media_teste, acc_global);
+    end
 end
 
 % -------------------------------------------------------------------------
@@ -244,24 +289,31 @@ comparison = table(method_names, familias, normalizacoes, acertos_vec, acc_globa
     'VariableNames', {'Metodo', 'Familia', 'Normalizacao', 'Acertos', 'Acc_Global', ...
     'Acc_Normal', 'Acc_Electrical', 'Acc_Mechanical'});
 
+comparison_rn = table(rn_names, rn_grupo, rn_norm, rn_acertos, rn_acc_global, ...
+    rn_acc_normal, rn_acc_electrical, rn_acc_mechanical, ...
+    'VariableNames', {'Metodo', 'Grupo', 'Normalizacao', 'Acertos', 'Acc_Global', ...
+    'Acc_Normal', 'Acc_Electrical', 'Acc_Mechanical'});
+
 disp(comparison);
 
 [~, idx_best] = max(comparison.Acc_Global);
-fprintf('\nMelhor resultado global: %s (%.2f%%)\n', comparison.Metodo(idx_best), comparison.Acc_Global(idx_best));
+fprintf('\nMelhor resultado global (CBR vs RN base): %s (%.2f%%)\n', comparison.Metodo(idx_best), comparison.Acc_Global(idx_best));
+
+[~, idx_best_rn] = max(comparison_rn.Acc_Global);
+fprintf('Melhor resultado global nas RN comparadas: %s (%.2f%%)\n', comparison_rn.Metodo(idx_best_rn), comparison_rn.Acc_Global(idx_best_rn));
 
 % Gráfico comparativo global
-fig = figure('Name', 'Comparação CBR vs RN', 'Color', 'w');
+fig_global = figure('Name', 'Comparação CBR vs RN', 'Color', 'w');
 bar(categorical(comparison.Metodo), comparison.Acc_Global);
 ylabel('Taxa de acerto global (%)');
 title('CBR vs Redes Neuronais — desempenho global no dataset de teste');
 grid on;
 xtickangle(35);
-force_black_text(fig);
-saveas(fig, fullfile(results_dir, 'comparacao_global.fig'));
-print(fig, fullfile(results_dir, 'comparacao_global.png'), '-dpng', '-r150');
+force_black_text(fig_global);
+save_figure_pair(fig_global, fullfile(results_dir, 'comparacao_global.fig'), fullfile(results_dir, 'comparacao_global.png'));
 
 % Gráfico por classe
-fig = figure('Name', 'Comparação por classe', 'Color', 'w');
+fig_classes = figure('Name', 'Comparação por classe', 'Color', 'w');
 mat_classes = [comparison.Acc_Normal, comparison.Acc_Electrical, comparison.Acc_Mechanical];
 bar(mat_classes, 'grouped');
 set(gca, 'XTickLabel', comparison.Metodo);
@@ -270,15 +322,16 @@ ylabel('Taxa de acerto por classe (%)');
 legend(classes, 'Location', 'best');
 title('CBR vs Redes Neuronais — desempenho por classe');
 grid on;
-force_black_text(fig);
-saveas(fig, fullfile(results_dir, 'comparacao_classes.fig'));
-print(fig, fullfile(results_dir, 'comparacao_classes.png'), '-dpng', '-r150');
+force_black_text(fig_classes);
+save_figure_pair(fig_classes, fullfile(results_dir, 'comparacao_classes.fig'), fullfile(results_dir, 'comparacao_classes.png'));
 
 % Guardar resultados
-save(fullfile(results_dir, 'comparacao_cbr_vs_rn.mat'), 'comparison', 'predicoes_todas');
+save(fullfile(results_dir, 'comparacao_cbr_vs_rn.mat'), 'comparison', 'comparison_rn', 'predicoes_todas');
 writetable(comparison, fullfile(results_dir, 'comparacao_cbr_vs_rn.csv'));
+writetable(comparison_rn, fullfile(results_dir, 'comparacao_rn_3best_3worst_norm.csv'));
 
 fprintf('\nResultados guardados em results/comparacao_cbr_vs_rn.mat e .csv\n');
+fprintf('Resultados RN guardados em results/comparacao_rn_3best_3worst_norm.csv\n');
 fprintf('=== TAREFA 3.4 CONCLUÍDA ===\n');
 
 % =========================================================================
@@ -378,5 +431,24 @@ function force_black_text(fig)
             end
         catch
         end
+    end
+end
+
+function save_figure_pair(fig_handle, fig_path, png_path)
+    if ~isgraphics(fig_handle, 'figure')
+        warning('Handle de figura inválido ao guardar: %s', fig_path);
+        return;
+    end
+
+    try
+        saveas(fig_handle, fig_path);
+    catch ME
+        warning('Falha ao guardar .fig (%s): %s', fig_path, ME.message);
+    end
+
+    try
+        print(fig_handle, png_path, '-dpng', '-r150');
+    catch ME
+        warning('Falha ao guardar .png (%s): %s', png_path, ME.message);
     end
 end
