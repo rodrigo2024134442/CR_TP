@@ -1,16 +1,22 @@
 function rede = treinar_rede_temperature(data)
-% TREINAR_REDE_TEMPERATURE Treina uma rede neuronal feedforward para prever temperature
+% TREINAR_REDE_TEMPERATURE — treina uma rede para prever `temperature`
+%
+% Descrição:
+%   Cria e treina uma rede feedforward simples para regressão da variável
+%   `temperature` a partir de três sensores/atributos: `vibration`,
+%   `rotation_speed` e `voltage`.
 %
 % Entrada:
-%   data — tabela com os dados já tratados
+%   data — tabela com os dados já tratados e prontos para treino
 %
 % Saída:
-%   rede — rede neuronal treinada para regressão de temperature
+%   rede — objeto de rede treinado (ready-to-use). A função devolve a rede
+%          tal como fornecida pela toolbox Neural Network do MATLAB.
 %
-% A rede usa como entradas:
-%   vibration, rotation_speed e voltage
-% e como saída:
-%   temperature
+% Nota didática:
+% - A rede é treinada com `fitnet` para regressão; se quiseres prever
+%   classes, usa `patternnet` e codificação one-hot para targets.
+% - A função fixa `rng(1)` para reproduzibilidade dos resultados.
 
     % Garantir que a tabela tem os campos necessários
     campos = {'temperature', 'vibration', 'rotation_speed', 'voltage'};

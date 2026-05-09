@@ -1,6 +1,14 @@
 % =========================================================================
-% main_task2_weights_analysis.m — Análise de diferentes pesos no CBR
-% Testa o sistema CBR com várias configurações de pesos
+% main_task2_weights_analysis.m — Análise de impacto dos pesos no CBR
+% Este script testa o comportamento do CBR com várias configurações de
+% pesos por atributo para entender quais atributos influenciam mais a
+% recuperação de casos (útil para afinar o sistema e para relatório).
+%
+% Abordagem:
+% 1) Normaliza os inputs para testar variantes com e sem normalização;
+% 2) Treina uma rede única para a fase de reuse (prever 'temperature');
+% 3) Avalia várias configurações de pesos, calcula taxas de acerto e guarda
+%    resultados e gráficos para análise posterior.
 % =========================================================================
 
 clear; close all;

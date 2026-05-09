@@ -1,14 +1,22 @@
 function T = build_targets(data)
-% Constrói o target binário (one-hot encoding) para as redes neuronais
-% Formato MATLAB: classes nas linhas, casos nas colunas (3 x N)
+% BUILD_TARGETS — constrói targets em one-hot para classificação
 %
-% Classes:
+% A saída `T` segue o formato usado pelas redes MATLAB: linhas = classes,
+% colunas = amostras. Cada coluna é um vetor one-hot com um único 1.
+%
+% Classes e codificação (ordem fixa):
 %   Normal            → [1; 0; 0]
 %   ElectricalFailure → [0; 1; 0]
 %   MechanicalFailure → [0; 0; 1]
 %
-% Entrada: data — tabela com o dataset tratado (com class_cat preenchido)
-% Saída:   T    — matriz [3 x N] de doubles (0s e 1s)
+% Entrada:
+%   data — tabela com a coluna `class_cat` preenchida
+%
+% Saída:
+%   T    — matriz double [3 x N] pronta para treinar `patternnet`
+
+% Nota didática: a ordem das linhas deve corresponder à utilizada em
+% outros scripts (por exemplo `main_task3` e `test_best_nets`).
 
 N = height(data);
 T = zeros(3, N);

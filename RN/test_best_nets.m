@@ -1,10 +1,15 @@
 function test_best_nets(X_test, T_test, classes)
-% Carrega as 3 melhores redes gravadas e testa-as no dataset de teste
+% TEST_BEST_NETS — carrega e testa as 3 melhores redes guardadas
+%
+% Descrição:
+%   Para cada uma das três redes salvas em `results/best_net*.mat`, carrega a
+%   rede e a configuração, classifica o conjunto de teste e imprime
+%   métricas de precisão global e por classe. Gera também o `plotconfusion`.
 %
 % Entradas:
-%   X_test  — matriz de entrada do dataset de teste [14 x N]
-%   T_test  — target binário do dataset de teste [3 x N]
-%   classes — cell array com os nomes das classes {'Normal', 'ElectricalFailure', 'MechanicalFailure'}
+%   X_test  — matriz de entradas do dataset de teste [14 x N]
+%   T_test  — targets one-hot do dataset de teste [3 x N]
+%   classes — cell array com nomes das classes na mesma ordem de `build_targets`
 
 fprintf('\n========= TESTE DAS 3 MELHORES REDES =========\n\n');
 

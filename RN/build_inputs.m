@@ -1,15 +1,20 @@
 function X = build_inputs(data)
-% BUILD_INPUTS Constrói a matriz de entrada X para redes neuronais
+% BUILD_INPUTS — constrói a matriz de entradas usada pelas redes
 %
-% Formato esperado
-% - Cada coluna representa um caso (amostra)
-% - Cada linha representa um atributo (feature)
-% → Dimensão final: [14 x N]
+% Formato esperado:
+% - Cada coluna é uma amostra (caso)
+% - Cada linha é um atributo (feature)
+% Resultado: matriz `X` com dimensão [14 x N]
+%
 % Entrada:
-%   data — tabela (table) com os dados já tratados
+%   data — tabela (`table`) com os dados já tratados. Deve conter as
+%          colunas listadas em `colunas` (ver abaixo).
 %
 % Saída:
-%   X — matriz numérica (double) com dimensão [14 x N]
+%   X — matriz double [14 x N] pronta para ser passada a redes MATLAB
+%
+% Dica de estudo: a ordem das linhas em `X` é importante — qualquer rede
+% treinada com esta função assume exatamente esta ordem de atributos.
 
     % Lista das colunas (features) que serão usadas como entrada
     % Cada uma corresponde a uma linha da matriz X

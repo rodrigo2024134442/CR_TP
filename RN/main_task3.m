@@ -1,11 +1,18 @@
 % =========================================================================
 % main_task3.m — Redes Neuronais Feedforward (Tarefa 3.3)
-% =========================================================================
-% Estrutura:
-%   a) Estudo de configurações: 10 repetições por config, registo de médias
-%   b) Normalizado vs não normalizado: 3 melhores + 3 piores configs
-%   c) Gravar as 3 melhores redes
-%   d) Testar as 3 melhores no dataset de teste
+% Script para explorar, treinar e avaliar múltiplas configurações de redes
+%
+% Estrutura e objetivo de estudo:
+%   a) Estudo de configurações: executar 10 repetições por configuração e
+%      registar médias para reduzir variabilidade aleatória;
+%   b) Comparar desempenho com/sem normalização (usar 3 melhores e 3 piores);
+%   c) Gravar as 3 melhores redes para avaliação posterior;
+%   d) Testar as 3 melhores em um dataset externo (`dataset_TP_test.csv`).
+%
+% Notas:
+% - O script suprime warnings durante o treino para evitar poluição visual;
+% - A função `train_network` encapsula 10 repetições por configuração;
+% - Mantém consistência na ordem de classes e entradas (`build_inputs`, `build_targets`).
 % =========================================================================
 
 clear; close all;

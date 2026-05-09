@@ -1,33 +1,41 @@
 function sim = local_similarity(v1, v2, col_min, col_max)
-% Calcula a similaridade local entre dois valores do mesmo atributo
-% Resultado sempre entre 0 (completamente diferentes) e 1 (iguais)
+% local_similarity — similaridade entre dois valores do mesmo atributo
+%
+% Descrição:
+%   Calcula uma medida de similaridade local entre dois valores do mesmo
+%   atributo. Para variáveis numéricas usamos uma normalização pelo intervalo
+%   observado (col_max - col_min) e transformamos a diferença numa similaridade
+%   entre 0 e 1. Para variáveis não numéricas (categóricas) devolvemos 1 se
+%   forem iguais e 0 caso contrário.
 %
 % Entradas:
-%   v1, v2       — os dois valores a comparar
-%   col_min      — valor mínimo da coluna (para normalizar)
-%   col_max      — valor máximo da coluna (para normalizar)
+%   v1, v2  - os dois valores a comparar (podem ser numéricos ou categóricos)
+%   col_min - mínimo observado da coluna (usado para normalizar)
+%   col_max - máximo observado da coluna (usado para normalizar)
+%
+% Saída:
+%   sim     - similaridade entre 0 e 1 (1 = idênticos, 0 = máximo de diferença)
 
-    % Se os valores não forem numéricos, comparar por igualdade exata.
-    % Isto torna a função mais robusta em testes manuais.
+    % Se os valores não forem numéricos, comparamos por igualdade exata.
+    % Converte em string para cobrir casos como categorical/char.
     if ~(isnumeric(v1) && isnumeric(v2))
         sim = double(string(v1) == string(v2));
         return;
     end
 
-    % calcular o intervalo da coluna
+    % Calcular o intervalo observado da coluna. Se for zero (todos os
+    % valores iguais) devolvemos similaridade máxima porque não há variação.
     intervalo = col_max - col_min;
-
-    % se o intervalo for zero, todos os valores da coluna são iguais
-    % não há diferença possível, similaridade é 1
     if intervalo == 0
         sim = 1;
         return;
     end
 
-    % calcular a diferença absoluta entre os dois valores
+    % Diferença absoluta normalizada: menor diferença -> similaridade mais alta
     diferenca = abs(v1 - v2);
-    % normalizar a diferença pelo intervalo e converter em similaridade
-    % 1 - isso inverte: 0 diferença = similaridade 1, máxima diferença = similaridade 0
     sim = 1 - (diferenca / intervalo);
+
+    % Garantir limites numéricos (por segurança numérica)
+    sim = max(0, min(1, sim));
 
 end

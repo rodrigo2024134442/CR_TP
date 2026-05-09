@@ -1,12 +1,15 @@
 % =========================================================================
-% main_task2.m — Sistema CBR completo
-% Testa o sistema com os 30 casos do dataset_TP_test.csv
-% =========================================================================
-% MODO NÃO-INTERATIVO: Para testes automáticos, pressione CTRL+C se for pedida entrada
-% MODO INTERATIVO: Para usar com confirmação do utilizador, altere a linha 
-%                  temp_final = cbr_revise(..., false)
-%                  para:
-%                  temp_final = cbr_revise(novo_caso.temperature, temp_sugerida, true)
+% main_task2.m — Sistema CBR completo (fluxo: Retrieve→Reuse→Revise→Retain)
+% Testa o sistema com os casos do ficheiro `dataset_TP_test.csv`.
+%
+% Notas de estudo:
+% - O script demonstra o ciclo completo de um sistema CBR aplicado a cada
+%   caso de teste: recupera casos similares, reutiliza a solução, faz uma
+%   revisão (automática ou interactiva) e decide se retém o novo caso.
+% - Para executar em modo não-interactivo (útil para testes automáticos),
+%   o `cbr_revise` é chamado com `modo_interativo=false` (default neste script).
+% - Para aprender: altere `cbr_revise` para `true` e aceite/recuse manualmente
+%   as sugestões para observar o efeito do `retain` no dataset.
 % =========================================================================
 clear; close all;
 script_dir = fileparts(mfilename('fullpath'));

@@ -1,19 +1,29 @@
 function [media_global, media_teste, melhor_net, melhor_tr] = train_network(X, T, topologia, func_treino, func_ativacao, divisao)
-% TRAIN_NETWORK Treina uma rede neuronal com uma dada configuração (10 repetições)
+% TRAIN_NETWORK — treina e avalia uma configuração de rede (10 repetições)
+%
+% Descrição:
+%   Executa `N_REP` repetições de treino com a mesma configuração para
+%   reduzir ruído estatístico. Para cada repetição treina uma rede, calcula
+%   métricas no conjunto completo e no subconjunto de teste, e guarda a
+%   melhor rede segundo a precisão no teste.
 %
 % Entradas:
 %   X            — matriz de entrada [14 x N]
-%   T            — matriz target (one-hot) [3 x N]
-%   topologia    — vetor com nº de neurónios por camada (ex: [10] ou [20 10])
-%   func_treino  — função de treino ('trainlm', 'trainbr', 'traingd', 'trainscg')
-%   func_ativacao— função de ativação na camada de saída ('tansig', 'logsig', etc.)
-%   divisao      — percentagem de divisão dos dados [treino validação teste]
+%   T            — matriz target one-hot [3 x N]
+%   topologia    — vetor com nº de neurónios por camada (ex: [10] or [20 10])
+%   func_treino  — algoritmo de treino ('trainlm', 'trainbr', 'traingd', 'trainscg')
+%   func_ativacao— função de ativação para a camada de saída ('softmax','tansig',...)
+%   divisao      — vector [treino val teste] em percentagem (ex.: [70 15 15])
 %
 % Saídas:
-%   media_global — média da precisão global nas 10 execuções (%)
-%   media_teste  — média da precisão no conjunto de teste (%)
-%   melhor_net   — rede com melhor desempenho no teste
-%   melhor_tr    — estrutura de treino associada à melhor rede
+%   media_global — média da precisão global nas N_REP execuções (%)
+%   media_teste  — média da precisão apenas no conjunto de teste (%)
+%   melhor_net   — objeto rede com melhor desempenho (segundo acc no teste)
+%   melhor_tr    — estrutura de treino associada à `melhor_net`
+
+% Nota didática: ao usar `trainbr` pode não existir divisão de treino/teste
+% interna (tr.testInd vazio). O código trata esse caso usando todo o dataset
+% como aproximação quando necessário.
 
     % Número de repetições (para reduzir variabilidade)
     N_REP = 10;

@@ -1,14 +1,19 @@
 function temp_final = cbr_revise(temp_atual, temp_sugerida, modo_interativo, verbose)
-% Revise do CBR
-% Pergunta ao utilizador se aceita a temperatura sugerida pela rede neuronal
-% Entradas: 
-%   temp_atual         — temperatura do novo caso
-%   temp_sugerida      — temperatura sugerida pela rede
-%   modo_interativo    — (OPCIONAL) se false, aceita automaticamente (teste automático)
-%                        se true ou omitido, pede confirmação ao utilizador
-%   verbose            — (OPCIONAL) true/false para mostrar mensagens no ecrã
-% Saída:    
-%   temp_final         — temperatura aceite pelo utilizador
+% cbr_revise — revisa e confirma a solução sugerida (fase humana/automática)
+%
+% Descrição:
+%   Implementa a etapa "Revise" do ciclo CBR. Dá ao utilizador a opção de
+%   aceitar ou rejeitar a temperatura sugerida pela rede. Existe também um
+%   modo não-interativo para aceitar automaticamente (útil para testes).
+%
+% Entradas:
+%   temp_atual      - temperatura atual registada no novo caso
+%   temp_sugerida   - temperatura sugerida pela fase de reuse (rede)
+%   modo_interativo - (opcional) true = perguntar ao utilizador; false = aceitar automático
+%   verbose         - (opcional) true/false para imprimir mensagens
+%
+% Saída:
+%   temp_final      - temperatura final aceite (pode ser temp_atual ou temp_sugerida)
 
 if nargin < 3 || isempty(modo_interativo)
     modo_interativo = true;
@@ -25,25 +30,26 @@ if verbose
 end
 
 if modo_interativo
-    % perguntar ao utilizador se aceita o valor sugerido
-    % 's' no final do input() trata a resposta como string
+    % Pergunta ao utilizador se aceita a sugestão. A função `input` devolve
+    % uma string quando usamos o segundo argumento 's'. O utilizador deve
+    % responder 's' para aceitar, qualquer outra coisa é interpretada como rejeição.
     resposta = input('  Aceita a temperatura sugerida? (s/n): ', 's');
     
     if strcmp(resposta, 's')
-        % utilizador aceitou  usa a temperatura sugerida pela rede
+        % Aceite: usa a temperatura sugerida
         temp_final = temp_sugerida;
         if verbose
             fprintf('  Temperatura atualizada para %.2f C\n', temp_final);
         end
     else
-        % utilizador recusou mantém a temperatura original
+        % Rejeitado: mantém a temperatura original do caso
         temp_final = temp_atual;
         if verbose
             fprintf('  Temperatura mantida em %.2f C\n', temp_final);
         end
     end
 else
-    % Modo não-interativo: aceita automaticamente a temperatura sugerida
+    % Modo não-interativo: automaticamente aceita a sugestão (útil em testes)
     temp_final = temp_sugerida;
     if verbose
         fprintf('  Temperatura atualizada para %.2f C (automático)\n', temp_final);
